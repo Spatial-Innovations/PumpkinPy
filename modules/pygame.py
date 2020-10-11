@@ -43,11 +43,18 @@ class Fonts:
         "GEORGIA": pygame.font.SysFont("georgia", 12)
     }
 
-    small = {
+    medium = {
         "ROBOTO": pygame.font.SysFont("roboto", 18),
         "COMICSANS": pygame.font.SysFont("comicsans", 18),
         "ARIAL": pygame.font.SysFont("arial", 18),
         "GEORGIA": pygame.font.SysFont("georgia", 18)
+    }
+
+    large = {
+        "ROBOTO": pygame.font.SysFont("roboto", 24),
+        "COMICSANS": pygame.font.SysFont("comicsans", 24),
+        "ARIAL": pygame.font.SysFont("arial", 24),
+        "GEORGIA": pygame.font.SysFont("georgia", 24)
     }
 
 
