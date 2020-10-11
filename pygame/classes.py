@@ -100,3 +100,10 @@ class Button:
         :return: bool value indicating whether or not the button is clicked
         """
         return self.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]
+
+
+class ImageButton:
+    def __init__(self, loc, size, idleImage, activeImage):
+        self.active = False
+        self.loc, self.size = loc, size
+        self.idleImage, self.activeImage = idleImage, activeImage
