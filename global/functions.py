@@ -15,13 +15,14 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+import os
+
 def ClearConsole():
     """
     Clears the program console.
     :return: None
     """
 
-    import os
     os.system("cls")
 
 
