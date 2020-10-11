@@ -118,7 +118,39 @@ class Button:
 
 
 class ImageButton:
-    def __init__(self, loc, size, idleImage, activeImage):
+    def __init__(self, loc, size, idleImage, activeImage, borderColor=Colors.BLACK, borderThickness=0):
+        """
+        Creates a button that you can click. It alternates between images whether or not it is clicked
+
+        :param loc: the x, y position of the button
+        :param size: the width and height of the button
+        :param idleImage: the image the button is displaying if the button has not been clicked yet
+        :param activeImage: the image the button is displaying if the button has been clicked
+        """
         self.active = False
         self.loc, self.size = loc, size
         self.idleImage, self.activeImage = idleImage, activeImage
+        self.borderColor, self.thickness = borderColor, borderThickness
+
+    def Draw(self, window):
+        """
+        Draws the button on the given surface
+        
+        :param window: the surface you want to draw the button on
+        """
+        window.blit(pygame.scale.transform(self.activeImage if self.active else self.idleImage, self.size), self.loc)
+        pygame.draw.rect(window, self.borderColor, (*self.loc, *self.size), self.thickness)
+
+    def Update(self, window, events):
+        """
+        Intended to call this method every iteration of your game loop. It draws the button and checks clicking.
+        
+        :param window: the surface you want to draw the button on
+        :param events: the events from your project(pygame.event.get())
+        """
+        self.Draw(window)
+
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.active = True if self.active == False else False
