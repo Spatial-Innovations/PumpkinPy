@@ -14,3 +14,8 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 # ##### END GPL LICENSE BLOCK #####
+
+from modules import general
+from modules import mathutils
+from modules import pygame
+from modules import socket

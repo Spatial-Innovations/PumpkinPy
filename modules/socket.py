@@ -16,7 +16,7 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import zlib
-from ..global.functions import Encrypt, Decrypt
+from modules.general import Encrypt, Decrypt
 
 def Receive(conn, header=256):
     """
