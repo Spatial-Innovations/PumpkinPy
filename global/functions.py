@@ -23,17 +23,3 @@ def ClearConsole():
 
     import os
     os.system("cls")
-
-
-def ChooseFile(startPath=None):
-    """
-    Uses tkinter to choose a file with a file browser.
-    :param startPath=None: Starting path of file browser
-    :return: None
-    """
-
-    from tkinter import Tk
-    from tkinter.filedialog import askopenfilename
-    
-    Tk().withdraw()
-    return askopenfilename(startPath)
