@@ -18,6 +18,7 @@
 def CheckPrime(n):
     """
     Checks if a number is prime.
+    
     :param n: An integer
     :return: bool specifying if n is a prime number.
     """

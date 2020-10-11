@@ -21,6 +21,7 @@ from ..global.functions import Encrypt, Decrypt
 def Receive(conn, header=256):
     """
     Receives a message from a socket connection.
+    
     :param conn: Connection obtained from \"conn, addr = server.accept()\"
     :param header: Amount of bytes in header message.
     :return: class bytes, received message.
@@ -37,6 +38,7 @@ def Receive(conn, header=256):
 def Send(conn, msg, header=256):
     """
     Sends a message to a socket connection.
+    
     :param conn: Connection obtained from \"conn, addr = server.accept()\"
     :param msg: Message to send in bytes format.
     :param header: Amount of bytes in header message.
@@ -52,6 +54,7 @@ def Send(conn, msg, header=256):
 def Compress(msg):
     """
     Compresses and encrypts a message. Note: The encryption can be found in pumpkinpy.global.functions.Encrypt.
+    
     :param msg: String message to compress.
     :return: Compressed bytes message.
     """
@@ -62,6 +65,7 @@ def Compress(msg):
 def Decompress(msg):
     """
     Decompresses and decrypts a message.
+    
     :param msg: String message to decompress.
     :return: Decompressed string message.
     """
