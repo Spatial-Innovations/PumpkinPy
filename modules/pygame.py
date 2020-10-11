@@ -35,6 +35,15 @@ class Colors:
         return (value,) * 3
 
 
+class Fonts:
+    small = {
+        "ROBOTO": pygame.font.SysFont("roboto", 12),
+        "COMICSANS": pygame.font.SysFont("comicsans", 12),
+        "ARIAL": pygame.font.SysFont("arial", 12),
+        "GEORGIA": pygame.font.SysFont("georgia", 12)
+    }
+
+
 class Button:
     def __init__(self, loc, size, font, text, bgCol=Colors.Gray(128), textCol=Colors.BLACK, borderThickness=0, borderColor=Colors.BLACK):
         """
