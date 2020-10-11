@@ -16,7 +16,13 @@
 # ##### END GPL LICENSE BLOCK #####
 
 def CheckPrime(n):
-    if n == 1:
+    """
+    Checks if a number is prime.
+    :param n: An integer
+    :return: bool specifying if n is a prime number.
+    """
+
+    if n <= 1:
         return False
 
     i = 2
