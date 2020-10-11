@@ -29,3 +29,18 @@ def Receive(conn, header=256):
 
     msg = conn.recv(int(msg))
     return msg
+
+
+def Send(conn, msg, header=256):
+    """
+    Sends a message to a socket connection.
+    :param conn: Connection obtained from \"conn, addr = server.accept()\"
+    :param msg: Message to send in bytes format.
+    :param header: Amount of bytes in header message.
+    :return: None
+    """
+
+    length = len(msg)
+    headerMsg = str(length).encode() + b" " * (header-length)
+    conn.send(headerMsg)
+    conn.send(msg)
