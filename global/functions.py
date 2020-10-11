@@ -40,3 +40,20 @@ def Encrypt(text):
         final += chars1[chars2.index(c)]
 
     return final
+
+
+def Decrypt(text):
+    """
+    Decrypts text encrypted with pumpkinpy.global.functions.Encrypt().
+    :param text: Text to decrypt.
+    :return: class str, decrypted text.
+    """
+
+    chars1 = "Sisw[*mWkb,0R;VCtK&:5-/Yo\"Oql_\\(1>I+L^\'?9vT$aU3!6.z7nAJ<g}dM=Hx#hFp~QyeX)fj|Z]`urcBN84GE@%DP2{"
+    chars2 = "!GN:r2>s#?i%@,=}7dwP/b^<a\\M)U`cmLQ&hBp{y\"EKRvxXo(qFWIS.|DtA\'5*ln8;f+ZTeOJ$9zu-k4Y0CHg_V~1][6j3"
+    
+    final = ""
+    for c in text:
+        final += chars2[chars1.index(c)]
+
+    return final
