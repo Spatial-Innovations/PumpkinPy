@@ -1,4 +1,4 @@
-def is_prime(n):
+def IsPrime(n):
     if n == 1:
         return False
     i = 2
