@@ -16,11 +16,11 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import pygame
-from .constants.Colors import *
+from .constants import Colors
 
 
 class Button:
-    def __init__(self, loc, size, font, text, bgCol=Gray(128), textCol=BLACK, borderThickness=0, borderColor=BLACK):
+    def __init__(self, loc, size, font, text, bgCol=Colors.Gray(128), textCol=Colors.BLACK, borderThickness=0, borderColor=Colors.BLACK):
         """
         Creates a button which you can draw on the screen and check for clicks.
 
@@ -48,7 +48,7 @@ class Button:
         :param newText: the new text that you want to change the current text to
         """
         self.text = newText
-        self.surf = self.font.render(self.text, 1, textCol)
+        self.surf = self.font.render(self.text, 1, self.textCol)
 
     def ChangeTextColor(self, newTextColor):
         """
