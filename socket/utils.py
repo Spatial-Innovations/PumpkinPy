@@ -51,9 +51,19 @@ def Send(conn, msg, header=256):
 
 def Compress(msg):
     """
-    Compresses and encrypts a message Note: The encryption can be found in pumpkinpy.global.functions.Encrypt.
+    Compresses and encrypts a message. Note: The encryption can be found in pumpkinpy.global.functions.Encrypt.
     :param msg: String message to compress.
     :return: Compressed bytes message.
     """
 
     return zlib.compress(Encrypt(msg).encode())
+
+
+def Decompress(msg):
+    """
+    Decompresses and decrypts a message.
+    :param msg: String message to decompress.
+    :return: Decompressed string message.
+    """
+
+    return Decrypt(zlib.decompress(msg).decode())
