@@ -25,3 +25,9 @@ class Colors:
     YELLOW = (255, 255, 0)
     MAGENTA = (255, 0, 255)
     CYAN = (0, 0, 255)
+
+    # Dynamic colors
+    def Gray(value):
+        if not 0 <= value <= 255:
+            raise ValueError(f"Invalid value: {value}")
+        return (value,) * 3
