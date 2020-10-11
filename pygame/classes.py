@@ -44,8 +44,8 @@ class Button:
     def ChangeText(self, newText):
         """
         Changes the text that will be displayed on top of the button
-
-        :param newText: the new text that you want to change the current text to
+        :param newText: the new text that you want to change the current text to.
+        :return: None
         """
         self.text = newText
         self.surf = self.font.render(self.text, 1, self.textCol)
@@ -53,8 +53,8 @@ class Button:
     def ChangeTextColor(self, newTextColor):
         """
         Changes the color of the text
-
-        :param newTextColor: the new color of the text
+        :param newTextColor: the new color of the text.
+        :return: None
         """
         self.textCol = newTextColor
         self.surf = self.font.render(self.text, 1, self.textCol)
@@ -62,32 +62,32 @@ class Button:
     def ChangeBgColor(self, newBgColor):
         """
         Changes the background color of the button
-
-        :param newBgColor: the new background color of the button
+        :param newBgColor: the new background color of the button.
+        :return: None
         """
         self.bgCol = newBgColor
 
     def ChangeBorderColor(self, newBorderColor):
         """
         Changes the border color of the button
-
-        :param newBorderColor: the new border color of the button
+        :param newBorderColor: the new border color of the button.
+        :return: None
         """
         self.borderColor = newBorderColor
     
     def ChangeBorderThickness(self, newBorderThickness):
         """
         Changes the thickness of the border
-
-        :param newBorderThickenss: the new thickness of the border of the button
+        :param newBorderThickenss: the new thickness of the border of the button.
+        :return: None
         """
         self.thickness = newBorderThickness
 
     def Draw(self, window):
         """
         Draws the button onto the give surface
-
-        :parma window: the surface you want to draw the button to
+        :param window: the surface you want to draw the button to.
+        :return: None
         """
         pygame.draw.rect(window, self.bgCol, self.rect)
         pygame.draw.rect(window, self.borderColor, self.rect, self.thickness)
@@ -96,7 +96,6 @@ class Button:
     def Clicked(self):
         """
         Checks if the button is clicked
-
         :return: bool value indicating whether or not the button is clicked
         """
         return self.rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]
