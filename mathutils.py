@@ -15,11 +15,12 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-def IsPrime(n):
+def CheckPrime(n):
     if n == 1:
         return False
+
     i = 2
-    while i*i <= n:
+    while i**2 <= n:
         if n % i == 0:
             return False
         i += 1
