@@ -15,7 +15,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import global
+from . import general
 from . import mathutils
 from . import pygame
 from . import socket
