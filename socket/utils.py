@@ -15,6 +15,9 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+import zlib
+from ..global.functions import Encrypt, Decrypt
+
 def Receive(conn, header=256):
     """
     Receives a message from a socket connection.
@@ -44,3 +47,13 @@ def Send(conn, msg, header=256):
     headerMsg = str(length).encode() + b" " * (header-length)
     conn.send(headerMsg)
     conn.send(msg)
+
+
+def Compress(msg):
+    """
+    Compresses and encrypts a message Note: The encryption can be found in pumpkinpy.global.functions.Encrypt.
+    :param msg: String message to compress.
+    :return: Compressed bytes message.
+    """
+
+    return zlib.compress(Encrypt(msg).encode())
