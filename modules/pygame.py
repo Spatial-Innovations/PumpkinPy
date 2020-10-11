@@ -16,7 +16,23 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import pygame
-from .constants import Colors
+
+class Colors:
+    # Static colors
+    BLACK = (0, 0, 0)
+    WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
+    GREEN = (0, 255, 0)
+    BLUE = (0, 0, 255)
+    YELLOW = (255, 255, 0)
+    MAGENTA = (255, 0, 255)
+    CYAN = (0, 0, 255)
+
+    # Dynamic colors
+    def Gray(value):
+        if not 0 <= value <= 255:
+            raise ValueError(f"Invalid value: {value}")
+        return (value,) * 3
 
 
 class Button:
