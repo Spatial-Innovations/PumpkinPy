@@ -37,24 +37,24 @@ class Colors:
 
 class Fonts:
     small = {
-        "ROBOTO": pygame.font.SysFont("roboto", 12),
-        "COMICSANS": pygame.font.SysFont("comicsans", 12),
-        "ARIAL": pygame.font.SysFont("arial", 12),
-        "GEORGIA": pygame.font.SysFont("georgia", 12)
-    }
-
-    medium = {
         "ROBOTO": pygame.font.SysFont("roboto", 18),
         "COMICSANS": pygame.font.SysFont("comicsans", 18),
         "ARIAL": pygame.font.SysFont("arial", 18),
         "GEORGIA": pygame.font.SysFont("georgia", 18)
     }
 
+    medium = {
+        "ROBOTO": pygame.font.SysFont("roboto", 36),
+        "COMICSANS": pygame.font.SysFont("comicsans", 36),
+        "ARIAL": pygame.font.SysFont("arial", 36),
+        "GEORGIA": pygame.font.SysFont("georgia", 36)
+    }
+
     large = {
-        "ROBOTO": pygame.font.SysFont("roboto", 24),
-        "COMICSANS": pygame.font.SysFont("comicsans", 24),
-        "ARIAL": pygame.font.SysFont("arial", 24),
-        "GEORGIA": pygame.font.SysFont("georgia", 24)
+        "ROBOTO": pygame.font.SysFont("roboto", 48),
+        "COMICSANS": pygame.font.SysFont("comicsans", 48),
+        "ARIAL": pygame.font.SysFont("arial", 48),
+        "GEORGIA": pygame.font.SysFont("georgia", 48)
     }
 
 
