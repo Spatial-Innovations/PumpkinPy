@@ -325,7 +325,7 @@ class TextInput:
     def draw(self, window):
         pygame.draw.rect(window, self.bg_color, self.rect)
         pygame.draw.rect(window, self.border_color, self.rect, self.thickness)
-        window.blit(self.surface, (int(self.loc[0] + self.size[0] - self.surface.get_width()/2), int(self.loc[1] + self.size[1] - self.surface.get_height()/2)))
+        window.blit(self.surface, (int(self.loc[0] + self.size[0]//2 - self.surface.get_width()/2), int(self.loc[1] + self.size[1]//2 - self.surface.get_height()/2)))
 
     def get_surface(self):
         return self.surface
