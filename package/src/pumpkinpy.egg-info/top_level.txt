@@ -1,0 +1,4 @@
+general
+mathutils
+pygame
+socket
