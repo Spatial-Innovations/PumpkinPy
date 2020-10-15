@@ -17,6 +17,7 @@
 
 import os
 import pygame
+pygame.init()
 
 class Colors:
     # Static colors
