@@ -53,7 +53,7 @@ def Send(conn, msg, header=256):
 
 def Compress(msg):
     """
-    Compresses and encrypts a message. Note: The encryption can be found in pumpkinpy.global.functions.Encrypt.
+    Compresses and encrypts a message. Note: The encryption can be found in pumpkinpy.general.Encrypt.
     
     :param msg: String message to compress.
     :return: Compressed bytes message.
