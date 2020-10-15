@@ -28,7 +28,7 @@ def Receive(conn, header=256):
     """
 
     msg = conn.recv(header)
-    while not msg:
+    while msg.strip() == b"":
         msg = conn.recv(header)
 
     msg = conn.recv(int(msg))
