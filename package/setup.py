@@ -12,7 +12,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Spatial-Innovations/PumpkinPy",
-    py_modules=["general", "mathutils", "pygame", "socket"],
+    py_modules=["pumpkinpy"],
     packages=setuptools.find_packages(),
     package_dir={"": "src"},
     install_requires=[
