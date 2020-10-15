@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pumpkinpy",
-    version="0.0.2",
+    version="0.0.4",
     author="Spatial Innovations",
     author_email="spatialinnovations@gmail.com",
     description="A Python module with utilities for many fields.",
@@ -14,7 +14,7 @@ setuptools.setup(
     url="https://github.com/Spatial-Innovations/PumpkinPy",
     py_modules=["pumpkinpy"],
     packages=setuptools.find_packages(),
-    package_dir={"": "src"},
+    #package_dir={"": "src"},
     install_requires=[
         "pygame ~= 1.9.6",
     ],
