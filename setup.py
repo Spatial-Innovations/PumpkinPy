@@ -14,7 +14,6 @@ setuptools.setup(
     url="https://github.com/Spatial-Innovations/PumpkinPy",
     py_modules=["pumpkinpy"],
     packages=setuptools.find_packages(),
-    #package_dir={"": "src"},
     install_requires=[
         "pygame ~= 1.9.6",
     ],
