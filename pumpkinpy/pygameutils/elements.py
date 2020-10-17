@@ -82,3 +82,17 @@ class ButtonText:
         else:
             self.currBgCol = self.bgCols["IDLE"]
             self.clicked = False
+
+
+class TextInput:
+    def __init__(self, loc, size, bgColor, border, borderCol, font, textDefault, password, maxLen):
+        self.loc = loc
+        self.size = size
+        self.color = bgColor
+        self.border = border > 0
+        self.borderWidth = border
+        self.borderCol = borderCol
+        self.font = font
+        self.text = textDefault
+        self.password = password
+        self.maxLen = maxLen
