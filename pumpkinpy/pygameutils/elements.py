@@ -58,7 +58,7 @@ class ButtonText:
         Draws button on a window.
         :param window: Pygame window object to draw on.
         """
-        pygame.draw.rect(window, self.currBgCol, self.loc+self.size)
+        pygame.draw.rect(window, self.currBgCol, self.loc + self.size)
         window.blit(self.text, self.textLoc)
         if self.border:
             pygame.draw.rect(window, self.borderCol, self.loc+self.size, self.borderWidth)
@@ -85,7 +85,7 @@ class ButtonText:
 
 
 class TextInput:
-    def __init__(self, loc, size, bgColor, border, borderCol, font, textDefault, password, maxLen):
+    def __init__(self, loc, size, bgColor, border, borderCol, font, textDefault, textCol, password, maxLen):
         self.loc = loc
         self.size = size
         self.color = bgColor
@@ -94,5 +94,18 @@ class TextInput:
         self.borderCol = borderCol
         self.font = font
         self.text = textDefault
+        self.textCol = textCol
         self.password = password
         self.maxLen = maxLen
+
+    def Draw(self, window):
+        loc = self.loc
+        size = self.size
+
+        text = self.font.render("*"*len(self.text) if self.password else self.text, 1, self.textCol)
+        self.textLoc = (loc[0] + (size[0]-text.get_width())//2, loc[1] + (size[1]-text.get_height())//2)
+
+        pygame.draw.rect(window, self.color, loc + size)
+        if self.border:
+            pygame.draw.rect(window, self.borderCol, loc + size, self.borderWidth)
+        window.blit(text, self.textLoc)
