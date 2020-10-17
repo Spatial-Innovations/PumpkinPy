@@ -54,6 +54,10 @@ class ButtonText:
         self.clicked = False
 
     def Draw(self, window):
+        """
+        Draws button on a window.
+        :param window: Pygame window object to draw on.
+        """
         pygame.draw.rect(window, self.currBgCol, self.loc+self.size)
         window.blit(self.text, self.textLoc)
         if self.border:
