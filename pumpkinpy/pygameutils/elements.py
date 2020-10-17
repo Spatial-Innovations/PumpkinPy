@@ -37,6 +37,9 @@ class TextButton:
 
     def Draw(self, window):
         pygame.draw.rect(window, self.currBgCol, self.loc+self.size)
+        window.blit(self.text, self.textLoc)
+        if self.border:
+            pygame.draw.rect(window, self.borderCol, self.loc+self.size, self.borderWidth)
 
     def Update(self):
         mouse = pygame.mouse.get_pos()
