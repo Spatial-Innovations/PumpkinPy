@@ -18,10 +18,10 @@
 import pygame
 
 class ButtonText:
-    def __init__(self, loc, size, bgColIdle, bgColHover, bgColPress, text, border=0, borderCol=None, clickButton=0):
+    def __init__(self, loc, size, bgColIdle, bgColHover, bgColPress, text, textOffset, border=0, borderCol=None, clickButton=0):
         self.loc = loc
         self.size = size
-        self.textLoc = (loc[0] + (size[0]-text.get_width())//2, loc[1] + (size[1]-text.get_height())//2)
+        self.textLoc = (loc[0] + textOffset[0] + (size[0]-text.get_width())//2, loc[1] + textOffset[1] + (size[1]-text.get_height())//2)
         self.bgCols = {
             "IDLE": bgColIdle,
             "HOVER": bgColHover,
