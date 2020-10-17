@@ -64,6 +64,9 @@ class ButtonText:
             pygame.draw.rect(window, self.borderCol, self.loc+self.size, self.borderWidth)
 
     def Update(self):
+        """
+        Updates button info like clicked and color.
+        """
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()[self.clickButton]
 
