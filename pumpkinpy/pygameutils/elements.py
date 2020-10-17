@@ -18,6 +18,12 @@
 import pygame
 
 class ButtonText:
+    """
+    class ButtonText: General purpose text-based button.
+    button.Draw(WINDOW); button.Update() in game loop
+    button.clicked to check if clicked.
+    """
+    
     def __init__(self, loc, size, bgColIdle, bgColHover, bgColPress, text, textOffset, border=0, borderCol=None, clickButton=0):
         self.loc = loc
         self.size = size
