@@ -32,6 +32,6 @@ def FindFactors(num, sort=False):
             factors.append(num//i)
     
     if sort:
-        return sorted(factors)
+        return set(sorted(factors))
     else:
-        return factors
+        return set(factors)
