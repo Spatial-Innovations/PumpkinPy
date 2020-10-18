@@ -97,6 +97,7 @@ class TextInput:
         self.textCol = textCol
         self.password = password
         self.maxLen = maxLen
+        self.editing = False
 
     def Draw(self, window):
         loc = self.loc
@@ -109,3 +110,7 @@ class TextInput:
         if self.border:
             pygame.draw.rect(window, self.borderCol, loc + size, self.borderWidth)
         window.blit(text, self.textLoc)
+
+    def Update(self, keyEvent=None):
+        mousePos = pygame.mouse.get_pos()
+        mouseClick = pygame.mouse.get_pressed()[0]
