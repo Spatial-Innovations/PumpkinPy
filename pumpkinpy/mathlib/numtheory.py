@@ -16,6 +16,11 @@
 # ##### END GPL LICENSE BLOCK #####
 
 def CheckPrime(num):
+    """
+    Checks if a integer n is prime.
+    :param num: A number.
+    :return: Boolean specifying whether the number is prime.
+    """
     if num <= 1:
         return False
     
@@ -25,6 +30,12 @@ def CheckPrime(num):
     return True
 
 def FindFactors(num, sort=False):
+    """
+    Finds all factors of a number.
+    :param num: Number to find factors.
+    :param sort=False: Whether to return factors sorted.
+    :return: set of all factors.
+    """
     factors = []
     for i in range(1, int(num**0.5)+1):
         if num % i == 0:
