@@ -17,6 +17,7 @@
 
 from . import pygameutils
 from . import algorithms
+from . import mathlib
 
 print("""Python module PumpkinPy
 Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
