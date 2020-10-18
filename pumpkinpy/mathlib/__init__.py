@@ -15,12 +15,4 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import pygameutils
-from . import algorithms
-from . import mathlib
-
-print("""Python module PumpkinPy
-Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
-Contributors:
-    Patrick Huang <https://github.com/HuangPatrick16777216>
-    Arjun Sahlot <https://github.com/ArjunSahlot>""")
+from . import numtheory

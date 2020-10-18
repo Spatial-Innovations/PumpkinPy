@@ -15,12 +15,23 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import pygameutils
-from . import algorithms
-from . import mathlib
+def CheckPrime(num):
+    if num <= 1:
+        return False
+    
+    for i in range(2, int(num**0.5)+1):
+        if num % i == 0:
+            return False
+    return True
 
-print("""Python module PumpkinPy
-Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
-Contributors:
-    Patrick Huang <https://github.com/HuangPatrick16777216>
-    Arjun Sahlot <https://github.com/ArjunSahlot>""")
+def FindFactors(num, sort=False):
+    factors = []
+    for i in range(1, int(num**0.5)+1):
+        if num % i == 0:
+            factors.append(i)
+            factors.append(num//i)
+    
+    if sort:
+        return sorted(factors)
+    else:
+        return factors

@@ -15,12 +15,20 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import pygameutils
-from . import algorithms
-from . import mathlib
+def Bubble(array):
+    """
+    Sorts a list with the bubble sorting algorithm.
+    :param array: Iterable of ints or floats.
+    :return: Sorted list.
+    """
+    array = list(array[:])
+    while True:
+        done = True
+        for i in range(len(array)-1):
+            if array[i] > array[i+1]:
+                array[i], array[i+1] = array[i+1], array[i]
+                done = False
+        if done:
+            break
 
-print("""Python module PumpkinPy
-Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
-Contributors:
-    Patrick Huang <https://github.com/HuangPatrick16777216>
-    Arjun Sahlot <https://github.com/ArjunSahlot>""")
+    return array
