@@ -85,32 +85,165 @@ class ButtonText:
 
 
 class TextInput:
-    def __init__(self, loc, size, bgColor, border, borderCol, font, textDefault, textCol, password, maxLen):
-        self.loc = loc
-        self.size = size
-        self.color = bgColor
-        self.border = border > 0
-        self.borderWidth = border
-        self.borderCol = borderCol
-        self.font = font
-        self.text = textDefault
+    def __init__(
+            self,
+            loc=(0, 0),
+            size=(100, 50),
+            bgCol=(255, 255, 255),
+            borderWidth=5,
+            borderCol=(0, 0, 0),
+            initialText="",
+            fontName="comicsans",
+            fontSize=35,
+            textCol=(0, 0, 0),
+            cursorCol=(0, 0, 1),
+            repeatInitial=400,
+            repeatInterval=35,
+            maxLen=-1,
+            password=False,
+            editing=False,
+            ):
+
+        self.loc, self.size = loc, size
+
+        self.editing = editing
+
         self.textCol = textCol
+        self.fontSize = fontSize
         self.password = password
+        self.text = initialText
         self.maxLen = maxLen
-        self.editing = False
+
+        self.rect = pygame.Rect(*loc, *size)
+        self.bgCol = bgCol
+        self.borderCol, self.borderWidth = borderCol, borderWidth
+
+        self.font = pygame.font.SysFont(fontName, fontSize)
+
+        self.surface = pygame.Surface((1, 1))
+        self.surface.set_alpha(0)
+
+        self.keyrepeatCounters = {}
+        self.keyrepeatInitial = repeatInitial
+        self.keyrepeatInterval = repeatInterval
+
+        self.cursorSurf = pygame.Surface((int(fontSize / 20 + 1), fontSize))
+        self.cursorSurf.fill(cursorCol)
+        self.cursorPos = len(initialText)
+        self.cursorVisible = True
+        self.cursorSwitch = 500
+        self.cursorCounter = 0
+
+        self.clock = pygame.time.Clock()
 
     def Draw(self, window):
-        loc = self.loc
-        size = self.size
+        pygame.draw.rect(window, self.bgCol, self.rect)
+        if self.borderWidth:
+            pygame.draw.rect(window, self.borderCol, self.rect, self.borderWidth)
 
-        text = self.font.render("*"*len(self.text) if self.password else self.text, 1, self.textCol)
-        self.textLoc = (loc[0] + (size[0]-text.get_width())//2, loc[1] + (size[1]-text.get_height())//2)
+        textPos = (int(self.loc[0] + self.size[0]//2 - self.surface.get_width()/2), int(self.loc[1] + self.size[1]//2 - self.surface.get_height()/2))
+        window.blit(self.surface, textPos)
 
-        pygame.draw.rect(window, self.color, loc + size)
-        if self.border:
-            pygame.draw.rect(window, self.borderCol, loc + size, self.borderWidth)
-        window.blit(text, self.textLoc)
+    def Update(self, events):
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.rect.collidepoint(event.pos):
+                    self.editing = True
+                else:
+                    self.editing = False
 
-    def Update(self, keyEvent=None):
-        mousePos = pygame.mouse.get_pos()
-        mouseClick = pygame.mouse.get_pressed()[0]
+            if event.type == pygame.KEYDOWN:
+                self.cursorVisible = True
+
+                if event.key not in self.keyrepeatCounters:
+                    if not event.key == pygame.K_RETURN:
+                        self.keyrepeatCounters[event.key] = [0, event.unicode]
+
+                if self.editing:
+                    if event.key == pygame.K_BACKSPACE:
+                        self.text = (
+                            self.text[:max(self.cursorPos - 1, 0)]
+                            + self.text[self.cursorPos:]
+                        )
+
+                        self.cursorPos = max(self.cursorPos - 1, 0)
+                    elif event.key == pygame.K_DELETE:
+                        self.text = (
+                            self.text[:self.cursorPos]
+                            + self.text[self.cursorPos + 1:]
+                        )
+
+                    elif event.key == pygame.K_RETURN:
+                        return True
+
+                    elif event.key == pygame.K_RIGHT:
+                        self.cursorPos = min(self.cursorPos + 1, len(self.text))
+
+                    elif event.key == pygame.K_LEFT:
+                        self.cursorPos = max(self.cursorPos - 1, 0)
+
+                    elif event.key == pygame.K_END:
+                        self.cursorPos = len(self.text)
+
+                    elif event.key == pygame.K_HOME:
+                        self.cursorPos = 0
+
+                    elif len(self.text) < self.maxLen or self.maxLen == -1:
+                        self.text = (
+                            self.text[:self.cursorPos]
+                            + event.unicode
+                            + self.text[self.cursorPos:]
+                        )
+                        self.cursorPos += len(event.unicode)
+
+            elif event.type == pygame.KEYUP:
+                if event.key in self.keyrepeatCounters:
+                    del self.keyrepeatCounters[event.key]
+
+        for key in self.keyrepeatCounters:
+            self.keyrepeatCounters[key][0] += self.clock.get_time()
+
+            if self.keyrepeatCounters[key][0] >= self.keyrepeatInitial:
+                self.keyrepeatCounters[key][0] = (
+                    self.keyrepeatInitial
+                    - self.keyrepeatInterval
+                )
+
+                eventKey, eventUnicode = key, self.keyrepeatCounters[key][1]
+                pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=eventKey, unicode=eventUnicode))
+
+        string = self.text
+        if self.password:
+            string = "*" * len(self.text)
+        self.surface = self.font.render(string, self.antialias, self.textCol)
+
+        self.cursorCounter += self.clock.get_time()
+        if self.cursorCounter >= self.cursorSwitch:
+            self.cursorCounter %= self.cursorSwitch
+            self.cursorVisible = not self.cursorVisible
+
+        if self.cursorVisible:
+            cursorY = self.font.size(self.text[:self.cursorPos])[0]
+            if self.cursorPos > 0:
+                cursorY -= self.cursorSurf.get_width()
+            if self.editing:
+                self.surface.blit(self.cursorSurf, (cursorY, 0))
+
+        self.clock.tick()
+        return False
+
+    def GetCursorPos(self):
+        return self.cursorPos
+
+    def SetTextColor(self, color):
+        self.textCol = color
+
+    def SetCursorColor(self, color):
+        self.cursor_surface.fill(color)
+
+    def ClearText(self):
+        self.text = ""
+        self.cursorPos = 0
+
+    def __repr__(self):
+        return self.text
