@@ -215,7 +215,7 @@ class TextInput:
         string = self.text
         if self.password:
             string = "*" * len(self.text)
-        self.surface = self.font.render(string, self.antialias, self.textCol)
+        self.surface = self.font.render(string, 1, self.textCol)
 
         self.cursorCounter += self.clock.get_time()
         if self.cursorCounter >= self.cursorSwitch:
