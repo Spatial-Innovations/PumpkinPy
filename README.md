@@ -9,9 +9,9 @@
 
 ## Installation
 * If you have a version installed already, run this command in a terminal:
-    * pip install --upgrade pumpkinpy
+    * `pip install --upgrade pumpkinpy`
 * If you are installing first time, run this command:
-    * pip install pumpkinpy
+    * `pip install pumpkinpy`
 
 ## Changelog
 * Version 0.1.1
