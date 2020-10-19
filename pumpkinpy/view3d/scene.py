@@ -47,3 +47,9 @@ class CameraPersp:
         self.loc = loc
         self.rot = rot
         self.fov = fov
+
+
+class Face:
+    def __init__(self, verts, color):
+        self.verts = verts
+        self.color = color
