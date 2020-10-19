@@ -50,6 +50,14 @@ class CameraPersp:
 
 
 class Face:
+    """
+    3D mesh face.
+    """
     def __init__(self, verts, color):
+        """
+        Initalize the face.
+        :param verts: List or tuple of vertex locations (x, y, z) in order.
+        :param color: Color (rgb) of face.
+        """
         self.verts = verts
         self.color = color
