@@ -21,3 +21,11 @@ class CameraOrtho:
         self.loc = loc
         self.rot = rot
         self.size = size
+
+
+class CameraPersp:
+    def __init__(self, pixelDim=(1920, 1080), loc=(0, 0, 0), rot=(0, 0, 0), fov=1):
+        self.pixels = pixelDim
+        self.loc = loc
+        self.rot = rot
+        self.fov = fov
