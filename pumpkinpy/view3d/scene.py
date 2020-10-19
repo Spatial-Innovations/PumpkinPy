@@ -16,16 +16,34 @@
 # ##### END GPL LICENSE BLOCK #####
 
 class CameraOrtho:
-    def __init__(self, pixelDim=(1920, 1080), loc=(0, 0, 0), rot=(0, 0, 0), size=1):
-        self.pixels = pixelDim
+    """
+    Orthographic camera used in rendering.
+    """
+    def __init__(self, loc=(0, 0, 0), rot=(0, 0, 0), size=1):
+        """
+        Initialize the camera.
+        :param loc: 3D location (x, y, z) of camera.
+        :param rot: 3D Euler rotation (x, y, z) of camera.
+        :param size: Orthographic size of camera (horizontal, vertical will be auto generated).
+        """
+        self.type = "PERSP"
         self.loc = loc
         self.rot = rot
         self.size = size
 
 
 class CameraPersp:
-    def __init__(self, pixelDim=(1920, 1080), loc=(0, 0, 0), rot=(0, 0, 0), fov=1):
-        self.pixels = pixelDim
+    """
+    Perspective camera used in rendering.
+    """
+    def __init__(self, loc=(0, 0, 0), rot=(0, 0, 0), fov=1):
+        """
+        Initialize the camera.
+        :param loc: 3D location (x, y, z) of camera.
+        :param rot: 3D Euler rotation (x, y, z) of camera.
+        :param fov: Field of view of camera (horizontal, vertical will be auto generated.).
+        """
+        self.type = "ORTHO"
         self.loc = loc
         self.rot = rot
         self.fov = fov
