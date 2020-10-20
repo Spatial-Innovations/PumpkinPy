@@ -18,7 +18,7 @@
 from . import pygameutils
 from . import algorithms
 from . import mathlib
-from . import engine
+from . import view3d
 
 print("""
 Python module PumpkinPy
