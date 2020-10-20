@@ -25,3 +25,9 @@ class ProjectionFlat:
         :param resolution: Output resolution (x, y) of engine.
         """
         self.res = resolution
+
+    def RenderFace(self, camera, face):
+        res = self.resolution
+        if camera.type == "ORTHO":
+            pxDim = camera.size / res[0]
+            camDims = (pxDim*res[0], pxDim*res[1])
