@@ -18,8 +18,10 @@
 from . import pygameutils
 from . import algorithms
 from . import mathlib
+from . import engine
 
-print("""Python module PumpkinPy
+print("""
+Python module PumpkinPy
 Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
 Contributors:
     Patrick Huang <https://github.com/HuangPatrick16777216>
