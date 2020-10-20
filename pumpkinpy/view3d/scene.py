@@ -26,7 +26,7 @@ class CameraOrtho:
         :param rot: 3D Euler rotation (x, y, z) of camera.
         :param size: Orthographic size of camera (horizontal, vertical will be auto generated).
         """
-        self.type = "PERSP"
+        self.type = "ORTHO"
         self.loc = loc
         self.rot = rot
         self.size = size
@@ -43,7 +43,7 @@ class CameraPersp:
         :param rot: 3D Euler rotation (x, y, z) of camera.
         :param fov: Field of view of camera (horizontal, vertical will be auto generated.).
         """
-        self.type = "ORTHO"
+        self.type = "PERSP"
         self.loc = loc
         self.rot = rot
         self.fov = fov
