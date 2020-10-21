@@ -158,10 +158,12 @@ class TextInput:
                     self.editing = False
 
             if not self.editing and not self.text:
+                self.password = False
                 self.text = self.label
 
             if self.editing and self.text == self.label:
                 self.ClearText()
+                self.password = True
 
             if event.type == pygame.KEYDOWN:
                 self.cursorVisible = True
