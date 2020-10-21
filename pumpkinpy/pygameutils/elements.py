@@ -157,7 +157,7 @@ class TextInput:
                 else:
                     self.editing = False
 
-            if not self.editing and not self.text:
+            if not self.text:
                 self.password = False
                 self.text = self.label
 
