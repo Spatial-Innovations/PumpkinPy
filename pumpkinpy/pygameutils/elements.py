@@ -97,8 +97,7 @@ class TextInput:
             borderCol=(0, 0, 0),
             initialText="",
             label="",
-            fontName="comicsans",
-            fontSize=35,
+            font=pygame.font.SysFont("comicsans", 35),
             textCol=(0, 0, 0),
             cursorCol=(0, 0, 1),
             repeatInitial=400,
@@ -113,7 +112,6 @@ class TextInput:
         self.editing = editing
 
         self.textCol = textCol
-        self.fontSize = fontSize
         self.password = password
         self.text = initialText
         self.label = label
@@ -123,7 +121,7 @@ class TextInput:
         self.bgCol = bgCol
         self.borderCol, self.borderWidth = borderCol, borderWidth
 
-        self.font = pygame.font.SysFont(fontName, fontSize)
+        self.font = font
 
         self.surface = pygame.Surface((1, 1))
         self.surface.set_alpha(0)
@@ -132,7 +130,7 @@ class TextInput:
         self.keyrepeatInitial = repeatInitial
         self.keyrepeatInterval = repeatInterval
 
-        self.cursorSurf = pygame.Surface((int(fontSize / 20 + 1), fontSize))
+        self.cursorSurf = pygame.Surface((int(font.size / 20 + 1), font.size))
         self.cursorSurf.fill(cursorCol)
         self.cursorPos = len(initialText)
         self.cursorVisible = True
