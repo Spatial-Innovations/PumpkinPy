@@ -93,6 +93,7 @@ class TextInput:
             borderWidth=5,
             borderCol=(0, 0, 0),
             initialText="",
+            label="",
             fontName="comicsans",
             fontSize=35,
             textCol=(0, 0, 0),
@@ -112,6 +113,7 @@ class TextInput:
         self.fontSize = fontSize
         self.password = password
         self.text = initialText
+        self.label = label
         self.maxLen = maxLen
 
         self.rect = pygame.Rect(*loc, *size)
@@ -151,6 +153,12 @@ class TextInput:
                     self.editing = True
                 else:
                     self.editing = False
+
+            if not self.editing and not self.text:
+                self.text = self.label
+
+            if self.editing and self.text == self.label:
+                self.ClearText()
 
             if event.type == pygame.KEYDOWN:
                 self.cursorVisible = True
