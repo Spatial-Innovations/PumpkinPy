@@ -88,25 +88,26 @@ class ButtonText:
 
 
 class TextInput:
-    def __init__(
-            self,
-            loc=(0, 0),
-            size=(100, 50),
-            bgCol=(255, 255, 255),
-            borderWidth=5,
-            borderCol=(0, 0, 0),
-            initialText="",
-            label="",
-            fontName="comicsans",
-            fontSize=35,
-            textCol=(0, 0, 0),
-            cursorCol=(0, 0, 1),
-            repeatInitial=400,
-            repeatInterval=35,
-            maxLen=-1,
-            password=False,
-            editing=False,
-            ):
+    def __init__(self, loc, size, bgCol, borderWidth=5, borderCol=(0, 0, 0), initialText="", label="", fontName="comicsans", fontSize=35, \
+        textCol=(0, 0, 0), cursorCol=(0, 0, 1), repeatInitial=400, repeatInterval=35, maxLen=-1, password=False, editing=False):
+        """
+        Input text class for Pygame.
+        :param loc: Pixel location (x, y).
+        :param size: Pixel size (x, y).
+        :param bgCol: Background color (RGB).
+        :param borderWidth: Width of border (pixels).
+        :param borderCol: Color of border (RGB).
+        :param initialText: Text to start with.
+        :param label: Label (name) of input.
+        :param font: pygame.font object.
+        :param textCol: Color of text.
+        :param cursorCol: Color of cursor.
+        :param repeatInitial: Initial delay (ms) for repeating (pressed down keys).
+        :param repeatInterval: Delay between repeats (pressed down keys).
+        :param maxLen: Maximum length of string (-1 = inf)
+        :param password: Boolean specifying whether to display as asterisks (*).
+        :param editing: Default to enter edit mode.
+        """
 
         self.loc, self.size = loc, size
 
