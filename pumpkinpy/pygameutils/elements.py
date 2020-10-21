@@ -109,6 +109,8 @@ class TextInput:
         :param editing: Default to enter edit mode.
         """
 
+        self.passwordField = password
+
         self.loc, self.size = loc, size
 
         self.editing = editing
@@ -163,7 +165,7 @@ class TextInput:
 
             if self.editing and self.text == self.label:
                 self.ClearText()
-                self.password = True
+                self.password = True if self.passwordField else False
 
             if event.type == pygame.KEYDOWN:
                 self.cursorVisible = True
