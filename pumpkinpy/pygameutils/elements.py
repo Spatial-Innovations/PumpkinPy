@@ -132,7 +132,7 @@ class TextInput:
         self.keyrepeatInitial = repeatInitial
         self.keyrepeatInterval = repeatInterval
 
-        self.cursorSurf = pygame.Surface((int(font.size / 20 + 1), font.size))
+        self.cursorSurf = pygame.Surface((int(font.get_height / 20 + 1), font.get_height))
         self.cursorSurf.fill(cursorCol)
         self.cursorPos = len(initialText)
         self.cursorVisible = True
