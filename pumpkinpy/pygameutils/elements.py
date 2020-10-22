@@ -53,20 +53,17 @@ class ButtonText:
         self.clickButton = clickButton
         self.clicked = False
 
-    def Draw(self, window):
+    def Draw(self, window, events):
         """
         Draws button on a window.
         :param window: Pygame window object to draw on.
+        :param events: Events obtained from pygame.events.get()
         """
         pygame.draw.rect(window, self.currBgCol, self.loc + self.size)
         window.blit(self.text, self.textLoc)
         if self.border:
             pygame.draw.rect(window, self.borderCol, self.loc+self.size, self.borderWidth)
 
-    def Update(self, events):
-        """
-        Updates button info like clicked and color.
-        """
         mouse = pygame.mouse.get_pos()
         click = False
         for event in events:
@@ -143,7 +140,7 @@ class TextInput:
 
         self.clock = pygame.time.Clock()
 
-    def Draw(self, window):
+    def Draw(self, window, events):
         pygame.draw.rect(window, self.bgCol, self.rect)
         if self.borderWidth:
             pygame.draw.rect(window, self.borderCol, self.rect, self.borderWidth)
@@ -151,7 +148,6 @@ class TextInput:
         textPos = (int(self.loc[0] + self.size[0]//2 - self.surface.get_width()/2), int(self.loc[1] + self.size[1]//2 - self.surface.get_height()/2))
         window.blit(self.surface, textPos)
 
-    def Update(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.rect.collidepoint(event.pos):
@@ -246,6 +242,7 @@ class TextInput:
 
         self.clock.tick()
         return False
+        
 
     def GetCursorPos(self):
         return self.cursorPos
