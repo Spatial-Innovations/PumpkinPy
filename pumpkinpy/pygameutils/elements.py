@@ -17,6 +17,8 @@
 
 import pygame
 
+pygame.init()
+
 class ButtonText:
     """
     class ButtonText: General purpose text-based button.
