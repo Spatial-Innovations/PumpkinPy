@@ -261,3 +261,11 @@ class TextInput:
 
     def __repr__(self):
         return self.text
+
+
+class Slider:
+    def __init__(self):
+        """
+        Creates a slider with various tweakable parameters.
+        """
+        pass
