@@ -276,7 +276,7 @@ class Slider:
         :type rectCol: tuple
         :param circleCol: The (R, G, B) color of the circle above the rectangle.
         :type circleCol: tuple
-        :param valRange: A tuple inidicating the range of values that the slider can scroll through (min, max).
+        :param valRange: A tuple indicating the range of values that the slider can scroll through (min, max).
         :type valRange: tuple
         :param initialVal: The starting value of the slider.
         :type initialVal: int

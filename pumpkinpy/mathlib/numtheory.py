@@ -15,6 +15,10 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+
+import math
+
+
 def CheckPrime(num):
     """
     Checks if a integer n is prime.
@@ -23,7 +27,7 @@ def CheckPrime(num):
     """
     if num <= 1:
         return False
-    
+
     for i in range(2, int(num**0.5)+1):
         if num % i == 0:
             return False
@@ -33,7 +37,7 @@ def FindFactors(num, sort=False):
     """
     Finds all factors of a number.
     :param num: Number to find factors.
-    :param sort=False: Whether to return factors sorted.
+    :param sort: Whether to return factors sorted.
     :return: set of all factors.
     """
     factors = []
@@ -41,8 +45,35 @@ def FindFactors(num, sort=False):
         if num % i == 0:
             factors.append(i)
             factors.append(num//i)
-    
+
     if sort:
         return sorted(set(factors))
     else:
         return set(factors)
+
+
+def FindTotatives(num):
+    """
+    Finds all the relative primes of a number which are below that number.
+
+    :param num: Number to find totatives of.
+    """
+    totatives = []
+    for i in range(1, num + 1):
+        if math.gcd(num, i) == 1:
+            totatives.append(i)
+
+    return totatives
+
+def NumTotatives(num):
+    """
+    Finds the number of relative primes of a number which are below that number.
+
+    :param num: Number to find the number of totatives of.
+    """
+    amount = 0
+    for i in range(1, num + 1):
+        if math.gcd(num, i) == 1:
+            amount += 1
+
+    return amount
