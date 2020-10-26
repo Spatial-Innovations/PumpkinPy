@@ -264,8 +264,37 @@ class TextInput:
 
 
 class Slider:
-    def __init__(self):
+    def __init__(self, rectLoc, rectSize, rectCol=(128, 128, 128), circleCol=(255, 255, 255), valRange=(1, 100), initialVal=20, horiz=True):
         """
         Creates a slider with various tweakable parameters.
+
+        :param rectLoc: The (x, y) location of the rectangle underneath the circle.
+        :type rectLoc: tuple
+        :param rectSize: The (width, height) size of the rectangle underneath the circle.
+        :type rectSize: tuple
+        :param rectCol: The (R, G, B) color of the rectangle underneath the circle.
+        :type rectCol: tuple
+        :param circleCol: The (R, G, B) color of the circle above the rectangle.
+        :type circleCol: tuple
+        :param valRange: A tuple inidicating the range of values that the slider can scroll through (min, max).
+        :type valRange: tuple
+        :param initialVal: The starting value of the slider.
+        :type initialVal: int
+        :param horiz: A boolean indicating whether or not the slider is horizontal(True) or vertical(False)
+        :type horiz: boolean
         """
-        pass
+
+        self.loc, self.size = rectLoc, rectSize
+        self.rectCol, self.circleCol = rectCol, circleCol
+        self.valRange = valRange
+        self.value = initialVal
+        self.horiz = horiz
+        
+    def GetValue(self):
+        """
+        Returns the current value of the slider.
+
+        :return: Current value of the slider
+        :rtype: int
+        """
+        return self.value
