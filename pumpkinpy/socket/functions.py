@@ -23,7 +23,7 @@ def Send(conn, msg, header=256):
     :param header: Length of header message.
     """
     length = len(msg)
-    headMsg = (str(length) + " "*header-length).encode()
+    headMsg = (str(length) + " "*(header-length)).encode()
     conn.send(headMsg)
     conn.send(msg)
 
