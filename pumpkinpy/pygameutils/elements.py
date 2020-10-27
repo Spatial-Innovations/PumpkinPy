@@ -265,7 +265,7 @@ class TextInput:
 
 
 class Slider:
-    def __init__(self, rectLoc, rectSize, rectCol=(128, 128, 128), circleCol=(255, 255, 255), valRange=(1, 100), initialVal=20, horiz=True):
+    def __init__(self, rectLoc, rectSize, rectCol=(128, 128, 128), circleCol=(255, 255, 255), valRange=(1, 100), initialVal=20, font=None, text=None, textCol=(0, 0, 0), horiz=True):
         """
         Creates a slider with various tweakable parameters.
 
@@ -290,6 +290,8 @@ class Slider:
         self.rectCol, self.circleCol = rectCol, circleCol
         self.valRange = valRange[0], valRange[1] + 1
         self.value = initialVal
+        self.font, self.text = font, text
+        self.textCol = textCol
         self.radius = int(self.height/2) if horiz else int(self.width/2)
         self.radius += 3
         self.horiz = horiz
@@ -323,3 +325,7 @@ class Slider:
         else:
             circleY = numpy.interp(self.value, self.valRange, (self.y, self.y + self.height))
             pygame.draw.circle(window, self.circleCol, (int(self.x + self.width/2), int(circleY)), int(self.radius))
+
+        if self.font is not None and self.text is not None:
+            text = self.font.render(self.text, 1, self.textCol)
+            window.blit(text, (int(self.x + self.width/2 - text.get_width()/2), int(self.y + self.height + 5)))
