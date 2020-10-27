@@ -15,15 +15,24 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import pygameutils
-from . import algorithms
-from . import mathlib
-from . import view3d
-from . import socket
+def Send(conn, msg, header=256):
+    """
+    Sends a socket message.
+    :param conn: Socket connection.
+    :param msg: Message (bytes).
+    :param header: Length of header message.
+    """
+    length = len(msg)
+    headMsg = (str(length) + " "*(header-length)).encode()
+    conn.send(headMsg)
+    conn.send(msg)
 
-print("""
-Python module PumpkinPy
-Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
-Contributors:
-    Patrick Huang <https://github.com/HuangPatrick16777216>
-    Arjun Sahlot <https://github.com/ArjunSahlot>""")
+
+def Receive(conn, header=256):
+    """
+    Receives a socket message.
+    :param conn: Socket connection.
+    :param header: Length of header message.
+    """
+    length = int(conn.recv(header))
+    return conn.recv(length)
