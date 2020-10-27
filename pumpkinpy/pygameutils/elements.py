@@ -16,6 +16,7 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import pygame
+import numpy
 
 pygame.init()
 
@@ -284,7 +285,8 @@ class Slider:
         :type horiz: boolean
         """
 
-        self.loc, self.size = rectLoc, rectSize
+        self.x, self.y = *rectLoc
+        self.width, self.height = *rectSize
         self.rectCol, self.circleCol = rectCol, circleCol
         self.valRange = valRange
         self.value = initialVal
@@ -298,3 +300,12 @@ class Slider:
         :rtype: int
         """
         return self.value
+
+    def Draw(self, window):
+        """
+        Meant to be ran every game loop iteration. Updates and draws the object given window.
+
+        :param window: The window that the slider should be drawn on.
+        """
+        if self.horiz:
+            circleX = numpy.interp(self.value, self.valRange, (self.x, self.x + self.width))

@@ -15,11 +15,12 @@ setuptools.setup(
     py_modules=["pumpkinpy"],
     packages=setuptools.find_packages(),
     install_requires=[
-        "pygame ~= 1.9.6",
+        "pygame",
+        "numpy"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
         "Operating System :: OS Independent",
     ],
-) 
+)
