@@ -26,7 +26,7 @@ class ButtonText:
     button.Draw(WINDOW); button.Update() in game loop
     button.clicked to check if clicked.
     """
-    def __init__(self, loc, size, bgColIdle, bgColHover, bgColPress, text, textOffset, border=0, borderCol=None, clickButton=0):
+    def __init__(self, loc, size, bgColIdle, bgColHover, bgColPress, text, textOffset=(0, 0), border=0, borderCol=(0, 0, 0), clickButton=0):
         """
         Initializes the button.
         :param loc: Tuple specifying pixel location: (100, 100)
