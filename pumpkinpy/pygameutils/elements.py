@@ -94,7 +94,7 @@ class TextInput:
         Input text class for Pygame.
         :param loc: Pixel location (x, y).
         :param size: Pixel size (x, y).
-        :param bgCol: Background color (RGB).
+        :param bgCol: Backgint color (RGB).
         :param borderWidth: Width of border (pixels).
         :param borderCol: Color of border (RGB).
         :param initialText: Text to start with.
@@ -285,11 +285,13 @@ class Slider:
         :type horiz: boolean
         """
 
-        self.x, self.y = *rectLoc
-        self.width, self.height = *rectSize
+        self.x, self.y = int(rectLoc[0]), int(rectLoc[1])
+        self.width, self.height = int(rectSize[0]), int(rectSize[1])
         self.rectCol, self.circleCol = rectCol, circleCol
-        self.valRange = valRange
+        self.valRange = valRange[0], valRange[1] + 1
         self.value = initialVal
+        self.radius = int(self.height/2) if horiz else int(self.width/2)
+        self.radius += 3
         self.horiz = horiz
 
     def GetValue(self):
@@ -307,5 +309,17 @@ class Slider:
 
         :param window: The window that the slider should be drawn on.
         """
+        if pygame.mouse.get_pressed()[0]:
+            if pygame.Rect(self.x, self.y, self.width, self.height).collidepoint(pygame.mouse.get_pos()):
+                self.value = int(numpy.interp(pygame.mouse.get_pos()[0], (self.x, self.x + self.width), self.valRange)) if self.horiz else int(numpy.interp(pygame.mouse.get_pos()[1], (self.y, self.y + self.height), self.valRange))
+
+
+        pygame.draw.rect(window, self.rectCol, (int(self.x), int(self.y), int(self.width), int(self.height)))
+
         if self.horiz:
             circleX = numpy.interp(self.value, self.valRange, (self.x, self.x + self.width))
+            pygame.draw.circle(window, self.circleCol, (int(circleX), int(self.y + self.height/2)), int(self.radius))
+
+        else:
+            circleY = numpy.interp(self.value, self.valRange, (self.y, self.y + self.height))
+            pygame.draw.circle(window, self.circleCol, (int(self.x + self.width/2), int(circleY)), int(self.radius))
