@@ -39,7 +39,7 @@ class _Ball:
 
 
 class BallBackground:
-    def __init__(self, scene, numBalls, radiusRange, velocityRange):
+    def __init__(self, scene, numBalls=100, radiusRange=(3, 8), velocityRange=(2, 5)):
         """
         Creates a background which is interactive and colorful
 
