@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -17,6 +17,7 @@
 
 
 import math
+import numpy
 
 
 def CheckPrime(num):
@@ -77,3 +78,13 @@ def NumTotatives(num):
             amount += 1
 
     return amount
+
+def MapRange(num, inRange, outRange):
+    """
+    Fits the inputted num in the inRange proportionally to the outRange.
+
+    :param num: Number to fit to the outRange
+    :param inRange: The range that the number is currently in
+    :param outRange: The range that the new number should be outputted in
+    """
+    return numpy.interp(num, inRange, outRange)
