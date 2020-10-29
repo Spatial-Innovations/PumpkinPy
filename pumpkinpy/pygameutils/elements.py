@@ -229,7 +229,7 @@ class TextInput:
         string = self.text
         if self.password:
             string = "*" * len(self.text)
-        self.surface = self.font.render(string, 1, self.textCol)
+        self.surface = self.font.render(str(string), 1, self.textCol)
 
         self.cursorCounter += self.clock.get_time()
         if self.cursorCounter >= self.cursorSwitch:
@@ -329,3 +329,8 @@ class Slider:
         if self.font is not None and self.text is not None:
             text = self.font.render(self.text, 1, self.textCol)
             window.blit(text, (int(self.x + self.width/2 - text.get_width()/2), int(self.y + self.height + 5)))
+
+
+class BarGraph:
+    def __init__(self, loc, size, categories=("Foo", "Bar"), values=(50, 32), scale=1, horiz=False):
+        pass
