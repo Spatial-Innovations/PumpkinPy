@@ -82,3 +82,30 @@ class AcceptedClient:
         """
         data = self.obj.recv(msgLen)
         return pickle.loads(data)
+
+
+class Client:
+    """Client object to use in client file."""
+    def __init__(self, conn):
+        """
+        Initializes client.
+        :param conn: Connection.
+        """
+        self.conn = conn
+
+    def Send(self, obj):
+        """
+        Sends a message.
+        :param obj: Any object to send (will use pickle.)
+        """
+        data = pickle.dumps(obj)
+        self.conn.send(data)
+
+    def Receive(self, msgLen=4096):
+        """
+        Receives a message.
+        :param msgLen: Length of bytes to receive.
+        :return: Object received.
+        """
+        data = self.obj.recv(msgLen)
+        return pickle.loads(data)
