@@ -45,6 +45,7 @@ class Server:
         self.server.listen()
         while True:
             conn, addr = self.server.accept()
+            self.clients.append(AcceptedClient(conn, addr))
 
     def _RemoveInactive(self):
         while True:
