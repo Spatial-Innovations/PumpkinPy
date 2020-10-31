@@ -23,14 +23,16 @@ class Server:
     """Server class, for use once in server file."""
     clients = []
 
-    def __init__(self, ip, port):
+    def __init__(self, ip, port, acceptedClient):
         """
         Initializes server.
         :param ip: Ip address of server.
         :param port: Port of server.
+        :param acceptedClient: Customized client from pumpkinpy.socketutils.network.AcceptedClient.
         """
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((ip, port))
+        self.acceptedClient = acceptedClient
 
     def Start(self, removeInactiveClients=True):
         """
@@ -45,7 +47,7 @@ class Server:
         self.server.listen()
         while True:
             conn, addr = self.server.accept()
-            self.clients.append(AcceptedClient(conn, addr))
+            self.clients.append(self.acceptedClient(conn, addr))
 
     def _RemoveInactive(self):
         while True:
@@ -66,6 +68,13 @@ class AcceptedClient:
         """
         self.conn = conn
         self.addr = addr
+        self.Start()
+
+    def Start(self):
+        """
+        Meant to be customized by user.
+        """
+        pass
 
     def Send(self, obj):
         """
