@@ -15,13 +15,14 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from PIL import Image, ImageFilter
+from PIL import Image
 import os
 
 
 def Resize(imagePath, newSize, replaceFile=False):
     image = Image.open(imagePath)
     image.thumbnail(newSize)
+
     if replaceFile:
         image.save(imagePath)
     else:
@@ -34,6 +35,46 @@ def Resize(imagePath, newSize, replaceFile=False):
 def Rotate(imagePath, rotation, replaceFile=False):
     image = Image.open(imagePath)
     image = image.rotate(-rotation)
+
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
+
+
+def Crop(imagePath, leftBound, topBound, rightBound, bottomBound, replaceFile=False):
+    image = Image.open(imagePath)
+    image = image.crop((leftBound, topBound, rightBound, bottomBound))
+
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
+
+
+def FlipLeftRight(imagePath, replaceFile=False):
+    image = Image.open(imagePath)
+    image = image.transpose(Image.FLIP_LEFT_RIGHT)
+
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
+
+
+def FlipTopBottom(imagePath, replaceFile=False):
+    image = Image.open(imagePath)
+    image = image.transpose(Image.FLIP_TOP_BOTTOM)
+
     if replaceFile:
         image.save(imagePath)
     else:
