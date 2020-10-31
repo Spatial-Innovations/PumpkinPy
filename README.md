@@ -1,4 +1,4 @@
-# PumpkinPy 0.1.1
+# PumpkinPy 0.2.7
 ### An all-purpose Python module.
 #### by Spatial Innovations
 
@@ -6,6 +6,8 @@
 * Sorting Algorithms
 * Number Theory algorithms
 * Pygame button and text input classes
+* Image utilities
+* Socket utilities
 
 ## Installation
 * If you have a version installed already, run this command in a terminal:
@@ -14,6 +16,11 @@
     * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.2.7
+    * Socket utilities, including networks.
+    * pygame backgrounds and sliders
+    * Image utilities
+
 * Version 0.1.1
     * Pygame text input
     * Bubble sort algorithm
