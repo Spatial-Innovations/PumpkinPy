@@ -1,4 +1,4 @@
-# PumpkinPy 0.2.7
+# PumpkinPy 0.2.8
 ### An all-purpose Python module.
 #### by Spatial Innovations
 
@@ -16,6 +16,10 @@
     * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.2.8
+    * Image dithering
+    * bpy improvements
+    
 * Version 0.2.7
     * Socket utilities, including networks.
     * pygame backgrounds and sliders
