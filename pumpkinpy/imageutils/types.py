@@ -19,10 +19,10 @@ from PIL import Image
 import os
 
 
-def JpgToPng(imagePath, replaceFile=False):
+def ToPng(imagePath, replaceFile=False):
     image = Image.open(imagePath)
     if replaceFile:
-        image.save(imagePath.replace(".jpg", ".png"))
+        image.save(imagePath.split(".")[0] + ".png")
     else:
         fileName, fileExt = os.path.splitext(imagePath)
         fileName += "_ppy"
@@ -31,10 +31,10 @@ def JpgToPng(imagePath, replaceFile=False):
         image.save(imagePath)
 
 
-def PngToJpg(imagePath, replaceFile=False):
+def ToJpg(imagePath, replaceFile=False):
     image = Image.open(imagePath).convert(mode="RGB")
     if replaceFile:
-        image.save(imagePath.replace(".png", ".jpg"))
+        image.save(imagePath.split(".")[0] + ".jpg")
     else:
         fileName, fileExt = os.path.splitext(imagePath)
         fileName += "_ppy"

@@ -15,7 +15,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from PIL import Image, ImageFilter, ImageEnhance
+from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import os
 import numpy as np
 
@@ -111,6 +111,19 @@ def Blend(image1Path, image2Path, factor, replaceFile=False):
         image.save(imagePath)
 
 
+def Invert(imagePath, replaceFile=False):
+    image = Image.open(imagePath).convert("RGB")
+    image = ImageOps.invert(image)
+
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
+
+
 def ChangeColorCount(imagePath, colorCount, replaceFile=False):
     image = Image.open(imagePath).convert("RGB")
     pixels = np.array(image)
@@ -148,7 +161,6 @@ def ChangeColorCount(imagePath, colorCount, replaceFile=False):
 
 def Dither(imagePath, factor, replaceFile=False):
     image = Image.open(imagePath).convert("RGB")
-    image.thumbnail((800, 800))
     pixels = np.array(image, dtype=np.float64)
 
     width, height = image.size
@@ -163,29 +175,26 @@ def Dither(imagePath, factor, replaceFile=False):
                     newG = round(g * factor / 255) * (255 / factor)
                     newB = round(b * factor / 255) * (255 / factor)
 
+                    errR, errG, errB = r - newR, g - newG, b - newB
+
+                    pixels[x + 1][y    ] += (errR * 7/16, errG * 7/16, errB * 7/16)
+                    pixels[x - 1][y + 1] += (errR * 3/16, errG * 3/16, errB * 3/16)
+                    pixels[x    ][y + 1] += (errR * 5/16, errG * 5/16, errB * 5/16)
+                    pixels[x + 1][y + 1] += (errR * 1/16, errG * 1/16, errB * 1/16)
+
+
                 except ZeroDivisionError:
                     pass
-
-                errR, errG, errB = r - newR, g - newG, b - newB
-
-                pixels[x + 1][y    ] += (errR * 7/16, errG * 7/16, errB * 7/16)
-                pixels[x - 1][y + 1] += (errR * 3/16, errG * 3/16, errB * 3/16)
-                pixels[x    ][y + 1] += (errR * 5/16, errG * 5/16, errB * 5/16)
-                pixels[x + 1][y + 1] += (errR * 1/16, errG * 1/16, errB * 1/16)
 
             except IndexError:
                 pass
 
-    image = Image.fromarray(pixels)
-    image.show()
+    image = Image.fromarray(pixels.astype(np.uint8))
 
-    # if replaceFile:
-    #     image.save(imagePath)
-    # else:
-    #     fileName, fileExt = os.path.splitext(imagePath)
-    #     fileName += "_ppy"
-    #     imagePath = fileName + fileExt
-    #     image.save(imagePath)
-
-
-Dither(os.path.join(os.path.realpath(os.path.dirname(__file__)), "Cave.png"), 2)
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
