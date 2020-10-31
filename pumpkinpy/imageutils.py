@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -15,16 +15,20 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import pygameutils
-from . import algorithms
-from . import mathlib
-from . import view3d
-from . import socket
-from . import imageutils
+from PIL import Image
 
-print("""
-Python module PumpkinPy
-Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
-Contributors:
-    Patrick Huang <https://github.com/HuangPatrick16777216>
-    Arjun Sahlot <https://github.com/ArjunSahlot>""")
+
+def JpgToPng(imagePath):
+    image = Image.open(imagePath)
+    image.save(imagePath.replace(".jpg", ".png"))
+
+
+def PngToJpg(imagePath):
+    image = Image.open(imagePath)
+    image.save(imagePath.replace(".png", ".jpg"))
+
+
+def ResizeImage(imagePath, newSize):
+    image = Image.open(imagePath)
+    image.thumbnail(newSize)
+    image.save(imagePath)
