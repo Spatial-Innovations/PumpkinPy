@@ -17,6 +17,7 @@
 
 import socket
 import threading
+import pickle
 
 class Server:
     clients = []
@@ -40,3 +41,17 @@ class Server:
             for i, c in enumerate(self.clients):
                 if not c.active:
                     del self.clients[i]
+
+
+class AcceptedClient:
+    def __init__(self, conn, addr):
+        self.conn = conn
+        self.addr = addr
+
+    def Send(self, obj):
+        data = pickle.dumps(obj)
+        self.conn.send(data)
+
+    def Receive(self, msgLen=4096):
+        data = self.obj.recv(msgLen)
+        return pickle.loads(data)
