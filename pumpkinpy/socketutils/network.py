@@ -20,23 +20,33 @@ import threading
 import pickle
 
 class Server:
+    """Server class, for use once in server file."""
     clients = []
 
     def __init__(self, ip, port):
+        """
+        Initializes server.
+        :param ip: Ip address of server.
+        :param port: Port of server.
+        """
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((ip, port))
 
     def Start(self, removeInactiveClients=True):
-        threading.Thread(target=self.Accept, args=()).start()
+        """
+        Starts accepting clients.
+        :param removeInactiveClients=True: Remove disconnected clients.
+        """
+        threading.Thread(target=self._Accept, args=()).start()
         if removeInactiveClients:
-            threading.Thread(target=self.RemoveInactive, args=()).start()
+            threading.Thread(target=self._RemoveInactive, args=()).start()
 
-    def Accept(self):
+    def _Accept(self):
         self.server.listen()
         while True:
             conn, addr = self.server.accept()
 
-    def RemoveInactive(self):
+    def _RemoveInactive(self):
         while True:
             for i, c in enumerate(self.clients):
                 if not c.active:
@@ -44,14 +54,31 @@ class Server:
 
 
 class AcceptedClient:
+    """Client accepted from server."""
+    active = True
+
     def __init__(self, conn, addr):
+        """
+        Initializes client.
+        :param conn: Connection.
+        :param addr: Address.
+        """
         self.conn = conn
         self.addr = addr
 
     def Send(self, obj):
+        """
+        Sends a message.
+        :param obj: Any object to send (will use pickle.)
+        """
         data = pickle.dumps(obj)
         self.conn.send(data)
 
     def Receive(self, msgLen=4096):
+        """
+        Receives a message.
+        :param msgLen: Length of bytes to receive.
+        :return: Object received.
+        """
         data = self.obj.recv(msgLen)
         return pickle.loads(data)
