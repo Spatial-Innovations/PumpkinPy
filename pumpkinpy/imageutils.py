@@ -15,20 +15,65 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from PIL import Image
+from PIL import Image, ImageFilter
+import os
 
 
-def JpgToPng(imagePath):
+def JpgToPng(imagePath, replaceFile=False):
     image = Image.open(imagePath)
-    image.save(imagePath.replace(".jpg", ".png"))
+    if replaceFile:
+        image.save(imagePath.replace(".jpg", ".png"))
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        fileExt = ".png"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
 
 
-def PngToJpg(imagePath):
+def PngToJpg(imagePath, replaceFile=False):
     image = Image.open(imagePath)
-    image.save(imagePath.replace(".png", ".jpg"))
+    if replaceFile:
+        image.save(imagePath.replace(".png", ".jpg"))
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        fileExt = ".jpg"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
 
 
-def ResizeImage(imagePath, newSize):
+def ResizeImage(imagePath, newSize, replaceFile=False):
     image = Image.open(imagePath)
     image.thumbnail(newSize)
-    image.save(imagePath)
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
+
+
+def RotateImage(imagePath, rotation, replaceFile=False):
+    image = Image.open(imagePath)
+    image.rotate(-rotation)
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
+
+
+def ToGrayscale(imagePath, replaceFile=False):
+    image = Image.open(imagePath)
+    image.convert(mode="L")
+    if replaceFile:
+        image.save(imagePath)
+    else:
+        fileName, fileExt = os.path.splitext(imagePath)
+        fileName += "_ppy"
+        imagePath = fileName + fileExt
+        image.save(imagePath)
