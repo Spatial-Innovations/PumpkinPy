@@ -16,7 +16,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         "pygame",
-        "numpy"
+        "numpy",
+        "pillow"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

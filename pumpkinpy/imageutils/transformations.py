@@ -19,31 +19,7 @@ from PIL import Image, ImageFilter
 import os
 
 
-def JpgToPng(imagePath, replaceFile=False):
-    image = Image.open(imagePath)
-    if replaceFile:
-        image.save(imagePath.replace(".jpg", ".png"))
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        fileExt = ".png"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
-
-
-def PngToJpg(imagePath, replaceFile=False):
-    image = Image.open(imagePath)
-    if replaceFile:
-        image.save(imagePath.replace(".png", ".jpg"))
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        fileExt = ".jpg"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
-
-
-def ResizeImage(imagePath, newSize, replaceFile=False):
+def Resize(imagePath, newSize, replaceFile=False):
     image = Image.open(imagePath)
     image.thumbnail(newSize)
     if replaceFile:
@@ -55,21 +31,9 @@ def ResizeImage(imagePath, newSize, replaceFile=False):
         image.save(imagePath)
 
 
-def RotateImage(imagePath, rotation, replaceFile=False):
+def Rotate(imagePath, rotation, replaceFile=False):
     image = Image.open(imagePath)
-    image.rotate(-rotation)
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
-
-
-def ToGrayscale(imagePath, replaceFile=False):
-    image = Image.open(imagePath)
-    image.convert(mode="L")
+    image = image.rotate(-rotation)
     if replaceFile:
         image.save(imagePath)
     else:
