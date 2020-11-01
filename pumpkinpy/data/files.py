@@ -26,7 +26,9 @@ def Compress(path):
     with open(path, "rb") as file:
         uncompressed = file.read()
     
-    parts = os.path.split(path)
-    newPath = os.path.join(os.path.dirname(path), os.path.dirname(parts[0])+"_comp", parts[1])
-    with open(newPath, "wb") as file:
+    parent = os.path.dirname(path)
+    filename = os.path.basename(path).split(".")
+    filename = filename[0] + "_comp." + filename[1]
+
+    with open(os.path.join(parent, filename), "wb") as file:
         file.write(zlib.compress(uncompressed))
