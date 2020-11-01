@@ -1,4 +1,4 @@
-# PumpkinPy 0.2.9
+# PumpkinPy 0.3.0
 ### An all-purpose Python module.
 #### by Spatial Innovations
 
@@ -17,6 +17,9 @@
     * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.3.0
+    * bpy.props kwargs
+    
 * Version 0.2.9
     * bpy improvements
     
