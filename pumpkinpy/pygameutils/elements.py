@@ -334,3 +334,8 @@ class Slider:
 class BarGraph:
     def __init__(self, loc, size, categories=("Foo", "Bar"), values=(50, 32), scale=1, horiz=False):
         pass
+
+
+class ColorPicker:
+    def __init__(self, wheelPos, wheelRad, sliderPos, sliderSize, sliderHoriz, displayRectLoc, displayRectSize):
+        pass
