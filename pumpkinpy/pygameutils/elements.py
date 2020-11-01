@@ -362,7 +362,8 @@ class BarGraph:
                  heightScale=1,
                  horiz=False):
 
-        self.x, self.y, self.width, self.height = *loc, *size
+        self.x, self.y = *loc
+        self.width, self.height = *size
         self.categories, self.values = categories, values
         if horiz:
             self.catWidth = (self.height - adjust - len(categories)

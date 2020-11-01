@@ -31,8 +31,8 @@ selected_pose_bones_from_active_object = []
 selected_sequences = []
 selected_visible_fcurves = []
 
+
 class preferences:
     class addons:
         def get(key, default=None):
             pass
-        
