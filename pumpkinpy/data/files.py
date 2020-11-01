@@ -32,3 +32,18 @@ def Compress(path):
 
     with open(os.path.join(parent, filename), "wb") as file:
         file.write(zlib.compress(uncompressed))
+
+def Decompress(path):
+    """
+    Decompresses a file with zlib compression, then stores to path + "_uncomp".
+    :param path: Path of file to decompress.
+    """
+    with open(path, "rb") as file:
+        compressed = file.read()
+    
+    parent = os.path.dirname(path)
+    filename = os.path.basename(path).split(".")
+    filename = filename[0] + "_uncomp." + filename[1]
+
+    with open(os.path.join(parent, filename), "wb") as file:
+        file.write(zlib.decompress(compressed))
