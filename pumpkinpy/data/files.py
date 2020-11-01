@@ -25,7 +25,7 @@ def Compress(path):
     """
     with open(path, "rb") as file:
         uncompressed = file.read()
-    
+
     parent = os.path.dirname(path)
     filename = os.path.basename(path).split(".")
     filename = filename[0] + "_comp." + filename[1]
@@ -40,7 +40,7 @@ def Decompress(path):
     """
     with open(path, "rb") as file:
         compressed = file.read()
-    
+
     parent = os.path.dirname(path)
     filename = os.path.basename(path).split(".")
     filename = filename[0] + "_uncomp." + filename[1]

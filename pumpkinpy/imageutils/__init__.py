@@ -15,4 +15,6 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import files
+from . import filters
+from . import transformations
+from . import types

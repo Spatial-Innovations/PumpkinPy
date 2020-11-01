@@ -177,11 +177,12 @@ def Dither(imagePath, factor, replaceFile=False):
 
                     errR, errG, errB = r - newR, g - newG, b - newB
 
-                    pixels[x + 1][y    ] += (errR * 7/16, errG * 7/16, errB * 7/16)
-                    pixels[x - 1][y + 1] += (errR * 3/16, errG * 3/16, errB * 3/16)
-                    pixels[x    ][y + 1] += (errR * 5/16, errG * 5/16, errB * 5/16)
-                    pixels[x + 1][y + 1] += (errR * 1/16, errG * 1/16, errB * 1/16)
-
+                    pixels[x + 1][y] += (errR * 7/16, errG * 7/16, errB * 7/16)
+                    pixels[x - 1][y + 1] += (errR *
+                                             3/16, errG * 3/16, errB * 3/16)
+                    pixels[x][y + 1] += (errR * 5/16, errG * 5/16, errB * 5/16)
+                    pixels[x + 1][y + 1] += (errR *
+                                             1/16, errG * 1/16, errB * 1/16)
 
                 except ZeroDivisionError:
                     pass

@@ -17,8 +17,10 @@
 
 import pygame
 import numpy
+import random
 
 pygame.init()
+
 
 class ButtonText:
     """
@@ -26,6 +28,7 @@ class ButtonText:
     button.Draw(WINDOW); button.Update() in game loop
     button.clicked to check if clicked.
     """
+
     def __init__(self, loc, size, bgColIdle, bgColHover, bgColPress, text, textOffset=(0, 0), border=0, borderCol=(0, 0, 0), clickButton=0):
         """
         Initializes the button.
@@ -42,7 +45,8 @@ class ButtonText:
         """
         self.loc = loc
         self.size = size
-        self.textLoc = (loc[0] + textOffset[0] + (size[0]-text.get_width())//2, loc[1] + textOffset[1] + (size[1]-text.get_height())//2)
+        self.textLoc = (loc[0] + textOffset[0] + (size[0]-text.get_width()) //
+                        2, loc[1] + textOffset[1] + (size[1]-text.get_height())//2)
         self.bgCols = {
             "IDLE": bgColIdle,
             "HOVER": bgColHover,
@@ -65,7 +69,8 @@ class ButtonText:
         pygame.draw.rect(window, self.currBgCol, self.loc + self.size)
         window.blit(self.text, self.textLoc)
         if self.border:
-            pygame.draw.rect(window, self.borderCol, self.loc+self.size, self.borderWidth)
+            pygame.draw.rect(window, self.borderCol,
+                             self.loc+self.size, self.borderWidth)
 
         mouse = pygame.mouse.get_pos()
         click = False
@@ -88,8 +93,8 @@ class ButtonText:
 
 
 class TextInput:
-    def __init__(self, loc, size, bgCol, borderWidth=5, borderCol=(0, 0, 0), initialText="", label="", font=pygame.font.SysFont("comicsans", 35), \
-        textCol=(0, 0, 0), cursorCol=(0, 0, 1), repeatInitial=400, repeatInterval=35, maxLen=-1, password=False, editing=False):
+    def __init__(self, loc, size, bgCol, borderWidth=5, borderCol=(0, 0, 0), initialText="", label="", font=pygame.font.SysFont("comicsans", 35),
+                 textCol=(0, 0, 0), cursorCol=(0, 0, 1), repeatInitial=400, repeatInterval=35, maxLen=-1, password=False, editing=False):
         """
         Input text class for Pygame.
         :param loc: Pixel location (x, y).
@@ -134,7 +139,8 @@ class TextInput:
         self.keyrepeatInitial = repeatInitial
         self.keyrepeatInterval = repeatInterval
 
-        self.cursorSurf = pygame.Surface((int(font.get_height() / 20 + 1), font.get_height()))
+        self.cursorSurf = pygame.Surface(
+            (int(font.get_height() / 20 + 1), font.get_height()))
         self.cursorSurf.fill(cursorCol)
         self.cursorPos = len(initialText)
         self.cursorVisible = True
@@ -146,9 +152,11 @@ class TextInput:
     def Draw(self, window, events):
         pygame.draw.rect(window, self.bgCol, self.rect)
         if self.borderWidth:
-            pygame.draw.rect(window, self.borderCol, self.rect, self.borderWidth)
+            pygame.draw.rect(window, self.borderCol,
+                             self.rect, self.borderWidth)
 
-        textPos = (int(self.loc[0] + self.size[0]//2 - self.surface.get_width()/2), int(self.loc[1] + self.size[1]//2 - self.surface.get_height()/2))
+        textPos = (int(self.loc[0] + self.size[0]//2 - self.surface.get_width()/2),
+                   int(self.loc[1] + self.size[1]//2 - self.surface.get_height()/2))
         window.blit(self.surface, textPos)
 
         for event in events:
@@ -191,7 +199,8 @@ class TextInput:
                         return True
 
                     elif event.key == pygame.K_RIGHT:
-                        self.cursorPos = min(self.cursorPos + 1, len(self.text))
+                        self.cursorPos = min(
+                            self.cursorPos + 1, len(self.text))
 
                     elif event.key == pygame.K_LEFT:
                         self.cursorPos = max(self.cursorPos - 1, 0)
@@ -224,7 +233,8 @@ class TextInput:
                 )
 
                 eventKey, eventUnicode = key, self.keyrepeatCounters[key][1]
-                pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=eventKey, unicode=eventUnicode))
+                pygame.event.post(pygame.event.Event(
+                    pygame.KEYDOWN, key=eventKey, unicode=eventUnicode))
 
         string = self.text
         if self.password:
@@ -245,7 +255,6 @@ class TextInput:
 
         self.clock.tick()
         return False
-
 
     def GetCursorPos(self):
         return self.cursorPos
@@ -313,27 +322,107 @@ class Slider:
         """
         if pygame.mouse.get_pressed()[0]:
             if pygame.Rect(self.x, self.y, self.width, self.height).collidepoint(pygame.mouse.get_pos()):
-                self.value = int(numpy.interp(pygame.mouse.get_pos()[0], (self.x, self.x + self.width), self.valRange)) if self.horiz else int(numpy.interp(pygame.mouse.get_pos()[1], (self.y, self.y + self.height), self.valRange))
+                self.value = int(numpy.interp(pygame.mouse.get_pos()[0], (self.x, self.x + self.width), self.valRange)) if self.horiz else int(
+                    numpy.interp(pygame.mouse.get_pos()[1], (self.y, self.y + self.height), self.valRange))
 
-
-        pygame.draw.rect(window, self.rectCol, (int(self.x), int(self.y), int(self.width), int(self.height)))
+        pygame.draw.rect(window, self.rectCol, (int(self.x), int(
+            self.y), int(self.width), int(self.height)))
 
         if self.horiz:
-            circleX = numpy.interp(self.value, self.valRange, (self.x, self.x + self.width))
-            pygame.draw.circle(window, self.circleCol, (int(circleX), int(self.y + self.height/2)), int(self.radius))
+            circleX = numpy.interp(
+                self.value, self.valRange, (self.x, self.x + self.width))
+            pygame.draw.circle(window, self.circleCol, (int(
+                circleX), int(self.y + self.height/2)), int(self.radius))
 
         else:
-            circleY = numpy.interp(self.value, self.valRange, (self.y, self.y + self.height))
-            pygame.draw.circle(window, self.circleCol, (int(self.x + self.width/2), int(circleY)), int(self.radius))
+            circleY = numpy.interp(
+                self.value, self.valRange, (self.y, self.y + self.height))
+            pygame.draw.circle(window, self.circleCol, (int(
+                self.x + self.width/2), int(circleY)), int(self.radius))
 
         if self.font is not None and self.text is not None:
             text = self.font.render(self.text, 1, self.textCol)
-            window.blit(text, (int(self.x + self.width/2 - text.get_width()/2), int(self.y + self.height + 5)))
+            window.blit(text, (int(self.x + self.width/2 -
+                                   text.get_width()/2), int(self.y + self.height + 5)))
 
 
 class BarGraph:
-    def __init__(self, loc, size, categories=("Foo", "Bar"), values=(50, 32), scale=1, horiz=False):
-        pass
+    def __init__(self,
+                 loc,
+                 size,
+                 categories=("Foo", "Bar"),
+                 values=(80, 30),
+                 graphColor=(0, 0, 0),
+                 font=pygame.font.SysFont("comicsans", 20),
+                 yaxisRot=0,
+                 xaxisRot=0,
+                 gap=5,
+                 adjust=100,
+                 widthScale=1,
+                 heightScale=1,
+                 horiz=False):
+
+        self.x, self.y, self.width, self.height = *loc, *size
+        self.categories, self.values = categories, values
+        if horiz:
+            self.catWidth = (self.height - adjust - len(categories)
+                             * gap)//len(categories) * widthScale
+        else:
+            self.catWidth = (self.width - adjust - len(categories)
+                             * gap)//len(categories) * widthScale
+        self.gap, self.adjust = gap, adjust
+        self.font = font
+        self.yaxisRot, self.xaxisRot = yaxisRot, xaxisRot
+        self.graphColor = graphColor
+        self.widthScale, self.heightScale = widthScale, heightScale
+        self.horiz = horiz
+        self.surf = pygame.Surface(size, pygame.SRCALPHA)
+        self._CreateSurf()
+
+    def GetSurf(self):
+        return self.surf
+
+    def _CreateSurf(self):
+        self.surf.fill((0, 0, 0, 0))
+        gap = self.catWidth
+        for i in range(len(self.categories)):
+            color = (random.randint(0, 255), random.randint(
+                0, 255), random.randint(0, 255))
+            while sum(color) < 120:
+                color = (random.randint(0, 255), random.randint(
+                    0, 255), random.randint(0, 255))
+            if self.horiz:
+                pygame.draw.rect(self.surf, color, (5 + self.adjust, gap*i*self.widthScale +
+                                                    i*self.gap, self.values[i]*self.heightScale, self.catWidth))
+                text = self.font.render(self.categories[i], 1, self.graphColor)
+                self.surf.blit(pygame.transform.rotate(
+                    text, self.yaxisRot), (self.x, gap*i*self.widthScale + i*self.gap + self.catWidth//2))
+                text = self.font.render(
+                    str(self.values[i]), 1, self.graphColor)
+                self.surf.blit(pygame.transform.rotate(text, self.xaxisRot), (5 + self.adjust + self.values[i]*self.heightScale//2 - text.get_width(
+                )//2, gap*i*self.widthScale + i*self.gap + self.catWidth//2 - text.get_height()//2))
+
+            else:
+                pygame.draw.rect(self.surf, color, (5 + self.adjust + gap*i*self.widthScale + i*self.gap, self.height -
+                                                    5 - self.adjust - self.values[i]*self.heightScale, self.catWidth, self.values[i]*self.heightScale))
+                text = self.font.render(self.categories[i], 1, self.graphColor)
+                self.surf.blit(pygame.transform.rotate(text, self.yaxisRot), (5 + self.adjust + gap*i *
+                                                                              self.widthScale + i*self.gap + text.get_width()//2, self.height - 5 - self.adjust + 10))
+                text = self.font.render(
+                    str(self.values[i]), 1, self.graphColor)
+                self.surf.blit(pygame.transform.rotate(text, self.xaxisRot), (5 + self.adjust + gap*i*self.widthScale + i*self.gap + self.catWidth //
+                                                                              2 - text.get_width()//2, self.height - 5 - self.adjust - self.values[i]*self.heightScale//2 - text.get_height()//2))
+
+        self._CreateGraph()
+
+    def _CreateGraph(self):
+        pygame.draw.rect(self.surf, self.graphColor,
+                         (self.adjust, 0, 5, self.height - self.adjust))
+        pygame.draw.rect(self.surf, self.graphColor, (self.adjust,
+                                                      self.height - 5 - self.adjust, self.width - self.adjust, 5))
+
+    def Draw(self, window):
+        window.blit(self.surf, (self.x, self.y))
 
 
 class ColorPicker:
