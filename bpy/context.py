@@ -17,3 +17,17 @@
 
 scene = None
 object = None
+
+selectable_objects = []
+selected_bones = []
+selected_editable_bones = []
+selected_editable_fcurves = []
+selected_editable_objects = []
+selected_editable_sequences = []
+selected_nla_strips = []
+selected_objects = []
+selected_pose_bones = []
+selected_pose_bones_from_active_object = []
+selected_sequences = []
+selected_visible_fcurves = []
+
