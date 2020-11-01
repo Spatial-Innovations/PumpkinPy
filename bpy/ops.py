@@ -15,25 +15,8 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-def BoolProperty(name="", description="", default=False):
-    pass
-def BoolVectorProperty(name="", description="", default=(False, False, False), size=3):
-    pass
-def IntProperty(name="", description="", default=0):
-    pass
-def IntVectorProperty(name="", description="", default=(0, 0, 0), size=3):
-    pass
-def FloatProperty(name="", description="", default=0):
-    pass
-def FloatVectorProperty(name="", description="", default=(0, 0, 0), size=3):
-    pass
-def StringProperty(name="", description="", default=""):
-    pass
-def EnumProperty(name="", description="", items=[]):
-    pass
-def PointerProperty(type=None):
-    pass
-def CollectionProperty():
-    pass
-def RemoveProperty():
-    pass
+class wm:
+    def url_open(url=""):
+        pass
+    def url_open_preset(type="BUG", id=""):
+        pass
