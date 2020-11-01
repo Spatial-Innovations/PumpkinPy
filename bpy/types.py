@@ -21,3 +21,5 @@ class Operator:
     pass
 class PropertyGroup:
     pass
+class Scene:
+    pass
