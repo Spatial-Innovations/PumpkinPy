@@ -21,6 +21,7 @@ from . import mathlib
 from . import view3d
 from . import socketutils
 from . import imageutils
+from . import app
 
 print("""
 Python module PumpkinPy
