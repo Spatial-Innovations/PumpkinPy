@@ -16,5 +16,16 @@
 # ##### END GPL LICENSE BLOCK #####
 
 class Cube:
-    def __init__(self, position):
-        self.pos = position
+    def __init__(self, **kwargs):
+        """
+        2 by 2 cube class.
+        :param position (kwarg): position of cube as described in readme.
+        """
+        if "fromMoves" in kwargs:
+            self.fromMoves = kwargs["fromMoves"]
+            self.currDepth = kwargs["currDepth"]
+            self.finalDepth = kwargs["finalDepth"]
+            self.position = kwargs["position"]
+            self.Search()
+        else:
+            self.position = kwargs["position"]
