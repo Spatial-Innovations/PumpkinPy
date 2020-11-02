@@ -20,6 +20,7 @@ class Cube:
         """
         2 by 2 cube class.
         :param position (kwarg): position of cube as described in readme.
+        :param finalDepth (kwarg): Final depth of search
         """
         if "fromMoves" in kwargs:
             self.fromMoves = kwargs["fromMoves"]
@@ -29,3 +30,42 @@ class Cube:
             self.Search()
         else:
             self.position = kwargs["position"]
+
+    def Search(self):
+        pass
+
+    def MoveU(self):
+        pos = self.position
+        pos[0][0], pos[0][1], pos[0][2], pos[0][3] = pos[0][3], pos[0][0], pos[0][1], pos[0][2]
+        pos[1][1], pos[1][0], pos[5][1], pos[5][0], pos[3][1], pos[3][0], pos[4][1], pos[4][0] = \
+            pos[4][1], pos[4][0], pos[1][1], pos[1][0], pos[5][1], pos[5][0], pos[3][1], pos[3][0]
+
+    def MoveUPrime(self):
+        pos = self.position
+        pos[0][0], pos[0][1], pos[0][2], pos[0][3] = pos[0][1], pos[0][2], pos[0][3], pos[0][0]
+        pos[1][1], pos[1][0], pos[4][1], pos[4][0], pos[3][1], pos[3][0], pos[5][1], pos[5][0] = \
+            pos[5][1], pos[5][0], pos[1][1], pos[1][0], pos[4][1], pos[4][0], pos[3][1], pos[3][0]
+
+    def MoveR(self):
+        pos = self.position
+        pos[4][0], pos[4][1], pos[4][2], pos[4][3] = pos[4][3], pos[4][0], pos[4][1], pos[4][2]
+        pos[0][2], pos[0][1], pos[3][0], pos[3][3], pos[2][2], pos[2][1], pos[1][2], pos[1][1] = \
+            pos[1][2], pos[1][1], pos[0][2], pos[0][1], pos[3][0], pos[3][3], pos[2][2], pos[2][1]
+
+    def MoveRPrime(self):
+        pos = self.position
+        pos[4][0], pos[4][1], pos[4][2], pos[4][3] = pos[4][1], pos[4][2], pos[4][3], pos[4][0]
+        pos[0][2], pos[0][1], pos[1][2], pos[1][1], pos[2][2], pos[2][1], pos[3][0], pos[3][3] = \
+            pos[3][0], pos[3][3], pos[0][2], pos[0][1], pos[1][2], pos[1][1], pos[2][2], pos[2][1]
+
+    def MoveF(self):
+        pos = self.position
+        pos[1][0], pos[1][1], pos[1][2], pos[1][3] = pos[1][3], pos[1][0], pos[1][1], pos[1][2]
+        pos[0][3], pos[0][2], pos[4][0], pos[4][3], pos[2][1], pos[2][0], pos[5][2], pos[5][1] = \
+            pos[5][2], pos[5][1], pos[0][3], pos[0][2], pos[4][0], pos[4][3], pos[2][1], pos[2][0]
+
+    def MoveFPrime(self):
+        pos = self.position
+        pos[1][0], pos[1][1], pos[1][2], pos[1][3] = pos[1][1], pos[1][2], pos[1][3], pos[1][0]
+        pos[0][3], pos[0][2], pos[5][2], pos[5][1], pos[2][1], pos[2][0], pos[4][0], pos[4][3] = \
+            pos[4][0], pos[4][3], pos[0][3], pos[0][2], pos[5][2], pos[5][1], pos[2][1], pos[2][0]
