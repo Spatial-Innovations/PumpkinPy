@@ -400,19 +400,19 @@ class BarGraph:
                     text, self.yaxisRot), (self.x, gap*i*self.widthScale + i*self.gap + self.catWidth//2))
                 text = self.font.render(
                     str(self.values[i]), 1, self.graphColor)
-                self.surf.blit(pygame.transform.rotate(text, self.xaxisRot), (5 + self.adjust + self.values[i]*self.heightScale//2 - text.get_width(
+                self.surf.blit(text, (5 + self.adjust + self.values[i]*self.heightScale//2 - text.get_width(
                 )//2, gap*i*self.widthScale + i*self.gap + self.catWidth//2 - text.get_height()//2))
 
             else:
                 pygame.draw.rect(self.surf, color, (5 + self.adjust + gap*i*self.widthScale + i*self.gap, self.height -
                                                     5 - self.adjust - self.values[i]*self.heightScale, self.catWidth, self.values[i]*self.heightScale))
                 text = self.font.render(self.categories[i], 1, self.graphColor)
-                self.surf.blit(pygame.transform.rotate(text, self.yaxisRot), (5 + self.adjust + gap*i *
+                self.surf.blit(pygame.transform.rotate(text, self.xaxisRot), (5 + self.adjust + gap*i *
                                                                               self.widthScale + i*self.gap + self.catWidth//2 - text.get_width()//2, self.height - 5 - self.adjust + 10))
                 text = self.font.render(
                     str(self.values[i]), 1, self.graphColor)
-                self.surf.blit(pygame.transform.rotate(text, self.xaxisRot), (5 + self.adjust + gap*i*self.widthScale + i*self.gap + self.catWidth //
-                                                                              2 - text.get_width()//2, self.height - 5 - self.adjust - self.values[i]*self.heightScale//2 - text.get_height()//2))
+                self.surf.blit(text, (5 + self.adjust + gap*i*self.widthScale + i*self.gap + self.catWidth //
+                                      2 - text.get_width()//2, self.height - 5 - self.adjust - self.values[i]*self.heightScale//2 - text.get_height()//2))
 
         self._CreateGraph()
 
