@@ -23,16 +23,24 @@ class Cube:
         :param finalDepth (kwarg): Final depth of search
         """
         if "fromMoves" in kwargs:
-            self.fromMoves = kwargs["fromMoves"]
+            self.position = kwargs["position"]
             self.currDepth = kwargs["currDepth"]
             self.finalDepth = kwargs["finalDepth"]
-            self.position = kwargs["position"]
+            self.fromMoves = kwargs["fromMoves"]
             self.Search()
         else:
             self.position = kwargs["position"]
+            self.currDepth = 0
+            self.finalDepth = kwargs["finalDepth"]
+            self.fromMoves = []
 
     def Search(self):
-        pass
+        self.branches = []
+        moves = ("MoveU", "MoveUPrime", "MoveR", "MoveRPrime", "MoveF", "MoveFPrime")
+        for m in moves:
+            currCube = Cube(position=self.position, currDepth=self.currDepth+1, finalDepth=self.finalDepth, fromMoves=self.fromMoves)
+            getattr(currCube, m)()
+            self.branches.append(currCube)
 
     def MoveU(self):
         pos = self.position
