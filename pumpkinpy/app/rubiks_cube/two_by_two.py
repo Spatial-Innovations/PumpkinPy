@@ -27,23 +27,39 @@ class Cube:
             self.currDepth = kwargs["currDepth"]
             self.finalDepth = kwargs["finalDepth"]
             self.fromMoves = kwargs["fromMoves"]
+            self.parent = kwargs["parent"]
             self.Search()
         else:
             self.position = kwargs["position"]
             self.currDepth = 0
             self.finalDepth = kwargs["finalDepth"]
             self.fromMoves = []
+            self.parent = self
+            self.solutions = []
 
     def Search(self):
         if self.currDepth >= self.finalDepth:
+            return
+        
+        solved = True
+        for face in self.position:
+            if face[0] != face[1] or face[0] != face[2] or face[0] != face[3]:
+                solved = False
+                break
+        if solved:
+            self.parent.AddSolution(self.fromMoves)
             return
 
         self.branches = []
         moves = ("MoveU", "MoveUPrime", "MoveR", "MoveRPrime", "MoveF", "MoveFPrime")
         for m in moves:
-            currCube = Cube(position=self.position, currDepth=self.currDepth+1, finalDepth=self.finalDepth, fromMoves=self.fromMoves)
+            currCube = Cube(position=self.position, currDepth=self.currDepth+1, finalDepth=self.finalDepth, fromMoves=self.fromMoves, parent=self.parent)
             getattr(currCube, m)()
+            currCube.fromMoves.append(m)
             self.branches.append(currCube)
+
+    def AddSolution(self, moves):
+        self.parent.solutions.append(moves)
 
     def MoveU(self):
         pos = self.position
@@ -82,5 +98,10 @@ class Cube:
             pos[4][0], pos[4][3], pos[0][3], pos[0][2], pos[5][2], pos[5][1], pos[2][1], pos[2][0]
 
 
-cube = Cube(position=[["Y", "Y", "Y", "Y"], ["B", "B", "B", "B"], ["W", "W", "W", "W"], ["G", "G", "G", "G"], ["R", "R", "R", "R"], ["O", "O", "O", "O"]], finalDepth=8)
+
+pos = [["Y", "Y", "O", "O"], ["B", "B", "B", "B"], ["R", "R", "W", "W"], ["G", "G", "G", "G"], ["Y", "R", "R", "Y"], ["O", "W", "W", "O"]]
+
+cube = Cube(position=pos, finalDepth=8)
 cube.Search()
+for s in cube.solutions:
+    print(len(s))
