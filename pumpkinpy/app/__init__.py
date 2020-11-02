@@ -15,5 +15,5 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import rubiks_cube
+#from . import rubiks_cube
 from . import graphical_anim
