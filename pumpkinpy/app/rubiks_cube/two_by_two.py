@@ -35,6 +35,9 @@ class Cube:
             self.fromMoves = []
 
     def Search(self):
+        if self.currDepth >= self.finalDepth:
+            return
+
         self.branches = []
         moves = ("MoveU", "MoveUPrime", "MoveR", "MoveRPrime", "MoveF", "MoveFPrime")
         for m in moves:
@@ -77,3 +80,7 @@ class Cube:
         pos[1][0], pos[1][1], pos[1][2], pos[1][3] = pos[1][1], pos[1][2], pos[1][3], pos[1][0]
         pos[0][3], pos[0][2], pos[5][2], pos[5][1], pos[2][1], pos[2][0], pos[4][0], pos[4][3] = \
             pos[4][0], pos[4][3], pos[0][3], pos[0][2], pos[5][2], pos[5][1], pos[2][1], pos[2][0]
+
+
+cube = Cube(position=[["Y", "Y", "Y", "Y"], ["B", "B", "B", "B"], ["W", "W", "W", "W"], ["G", "G", "G", "G"], ["R", "R", "R", "R"], ["O", "O", "O", "O"]], finalDepth=8)
+cube.Search()
