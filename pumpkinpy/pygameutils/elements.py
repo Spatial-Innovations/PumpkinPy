@@ -408,7 +408,7 @@ class BarGraph:
                                                     5 - self.adjust - self.values[i]*self.heightScale, self.catWidth, self.values[i]*self.heightScale))
                 text = self.font.render(self.categories[i], 1, self.graphColor)
                 self.surf.blit(pygame.transform.rotate(text, self.yaxisRot), (5 + self.adjust + gap*i *
-                                                                              self.widthScale + i*self.gap + text.get_width()//2, self.height - 5 - self.adjust + 10))
+                                                                              self.widthScale + i*self.gap + self.catWidth//2 - text.get_width()//2, self.height - 5 - self.adjust + 10))
                 text = self.font.render(
                     str(self.values[i]), 1, self.graphColor)
                 self.surf.blit(pygame.transform.rotate(text, self.xaxisRot), (5 + self.adjust + gap*i*self.widthScale + i*self.gap + self.catWidth //
