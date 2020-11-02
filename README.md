@@ -1,4 +1,4 @@
-# PumpkinPy 0.3.1
+# PumpkinPy 0.3.2
 ### An all-purpose Python module.
 #### by Spatial Innovations
 
@@ -17,6 +17,9 @@
     * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.3.2
+    * Pygame Bar Graph
+    
 * Version 0.3.1
     * bpy improvements
     
