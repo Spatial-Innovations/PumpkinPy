@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -40,7 +40,7 @@ class Cube:
     def Search(self):
         if self.currDepth >= self.finalDepth:
             return
-        
+
         solved = True
         for face in self.position:
             if face[0] != face[1] or face[0] != face[2] or face[0] != face[3]:
@@ -51,9 +51,11 @@ class Cube:
             return
 
         self.branches = []
-        moves = ("MoveU", "MoveUPrime", "MoveR", "MoveRPrime", "MoveF", "MoveFPrime")
+        moves = ("MoveU", "MoveUPrime", "MoveR",
+                 "MoveRPrime", "MoveF", "MoveFPrime")
         for m in moves:
-            currCube = Cube(position=self.position, currDepth=self.currDepth+1, finalDepth=self.finalDepth, fromMoves=self.fromMoves, parent=self.parent)
+            currCube = Cube(position=self.position, currDepth=self.currDepth+1,
+                            finalDepth=self.finalDepth, fromMoves=self.fromMoves, parent=self.parent)
             getattr(currCube, m)()
             currCube.fromMoves.append(m)
             self.branches.append(currCube)
@@ -98,8 +100,8 @@ class Cube:
             pos[4][0], pos[4][3], pos[0][3], pos[0][2], pos[5][2], pos[5][1], pos[2][1], pos[2][0]
 
 
-
-pos = [["Y", "Y", "O", "O"], ["B", "B", "B", "B"], ["R", "R", "W", "W"], ["G", "G", "G", "G"], ["Y", "R", "R", "Y"], ["O", "W", "W", "O"]]
+pos = [["Y", "Y", "O", "O"], ["B", "B", "B", "B"], ["R", "R", "W", "W"],
+       ["G", "G", "G", "G"], ["Y", "R", "R", "Y"], ["O", "W", "W", "O"]]
 
 cube = Cube(position=pos, finalDepth=8)
 cube.Search()

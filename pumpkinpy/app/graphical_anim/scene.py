@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +24,7 @@ import cv2
 from PIL import Image
 from .errors import ExportError
 
+
 class Scene2D:
     def __init__(self, resolution, fps):
         """
@@ -34,7 +35,7 @@ class Scene2D:
         self.res = resolution
         self.fps = fps
         self.layers = []
-        
+
     def __repr__(self):
         return f"""StrawberryPy Scene object:
 Resolution: {self.res}
@@ -61,7 +62,6 @@ Fps: {self.fps}
 
         return [pixels]
 
-
     def Export(self, path):
         """
         Exports into a video file.
@@ -70,7 +70,7 @@ Fps: {self.fps}
         # Check extension
         if not path.endswith(".mp4"):
             raise ExportError("StrawberryPy: Only .mp4 files are allowed.")
-            
+
         print(f"Exporting to {path}")
         # Initialize directory
         PARENT = os.path.dirname(__file__)
@@ -82,7 +82,8 @@ Fps: {self.fps}
         print("Step 2/4: Saving images to tmp directory.")
         for i, frame in enumerate(self.Render()):
             pixels = numpy.array(frame, dtype=numpy.uint8)
-            Image.fromarray(pixels).save(os.path.join(PARENT, "tmp", f"{i}.png"))
+            Image.fromarray(pixels).save(
+                os.path.join(PARENT, "tmp", f"{i}.png"))
 
         # Compile into video
         print("Step 3/4: Compiling video")
