@@ -34,7 +34,8 @@ setuptools.setup(
     install_requires=[
         "pygame",
         "numpy",
-        "pillow"
+        "pillow",
+        "opencv-python"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
