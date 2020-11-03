@@ -22,7 +22,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pumpkinpy",
-    version="0.3.6",
+    version="0.3.7",
     author="Spatial Innovations",
     author_email="spatialinnovations@gmail.com",
     description="A Python module with utilities for many fields.",

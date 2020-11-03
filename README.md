@@ -1,4 +1,4 @@
-# PumpkinPy 0.3.6
+# PumpkinPy 0.3.7
 ### An all-purpose Python module.
 #### by Spatial Innovations
 
@@ -17,6 +17,9 @@
     * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.3.7
+    * Pygame Color Picker element.
+    
 * Version 0.3.6
     * Merged StrawberryPy
     * bpy improvements
