@@ -1,8 +1,11 @@
 # PumpkinPy 0.3.6
-### An all-purpose Python module.
-#### by Spatial Innovations
+
+## An all-purpose Python module
+
+### by Spatial Innovations
 
 ## Features
+
 * Sorting Algorithms
 * Number Theory algorithms
 * Pygame button and text input classes
@@ -11,40 +14,42 @@
 * Fake bpy (Blender Python) module
 
 ## Installation
+
 * If you have a version installed already, run this command in a terminal:
-    * `pip install --upgrade pumpkinpy`
+  * `pip install --upgrade pumpkinpy`
 * If you are installing first time, run this command:
-    * `pip install pumpkinpy`
+  * `pip install pumpkinpy`
 
 ## Changelog
+
 * Version 0.3.6
-    * Merged StrawberryPy
-    * bpy improvements
-    * Bar graph improvements
-    
+  * Merged StrawberryPy
+  * bpy improvements
+  * Bar graph improvements
+
 * Version 0.3.2
-    * Pygame Bar Graph
-    
+  * Pygame Bar Graph
+
 * Version 0.3.1
-    * bpy improvements
-    
+  * bpy improvements
+
 * Version 0.3.0
-    * bpy.props kwargs
-    
+  * bpy.props kwargs
+
 * Version 0.2.9
-    * bpy improvements
-    
+  * bpy improvements
+
 * Version 0.2.8
-    * Image dithering
-    * bpy improvements
-    
+  * Image dithering
+  * bpy improvements
+
 * Version 0.2.7
-    * Socket utilities, including networks.
-    * pygame backgrounds and sliders
-    * Image utilities
+  * Socket utilities, including networks.
+  * pygame backgrounds and sliders
+  * Image utilities
 
 * Version 0.1.1
-    * Pygame text input
-    * Bubble sort algorithm
-    * Find factors function
-    * Check prime function
+  * Pygame text input
+  * Bubble sort algorithm
+  * Find factors function
+  * Check prime function
