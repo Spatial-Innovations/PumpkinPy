@@ -15,6 +15,71 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-import colorsys
-import numpy
+from colorsys import *
+import numpy as np
 
+
+def RGBToHSV(rgb):
+    rgb = np.array(rgb)/255
+    hsv = np.array(rgb_to_hsv(rgb))*255
+    return hsv
+
+
+def RGBToHLS(rgb):
+    rgb = np.array(rgb)/255
+    hls = np.array(rgb_to_hls(rgb))*255
+    return hls
+
+
+def RGBToYIQ(rgb):
+    rgb = np.array(rgb)/255
+    yiq = np.array(rgb_to_yiq(rgb))*255
+    return yiq
+
+
+def HSVToRGB(hsv):
+    hsv = np.array(hsv)/255
+    rgb = np.array(hsv_to_rgb(hsv))*255
+    return rgb
+
+
+def HSVToYIQ(hsv):
+    rgb = HSVToRGB(hsv)
+    return RGBToYIQ(rgb)
+
+
+def HSVToHLS(hsv):
+    rgb = HSVToRGB(hsv)
+    return RGBToHLS(rgb)
+
+
+def YIQToRGB(yiq):
+    yiq = np.array(yiq)/255
+    rgb = np.array(yiq_to_rgb(yiq))*255
+    return rgb
+
+
+def YIQToHSV(yiq):
+    rgb = YIQToRGB(yiq)
+    return RGBToHSV(rgb)
+
+
+def YIQToHLS(yiq):
+    rgb = YIQToRGB(yiq)
+    return RGBToHLS(rgb)
+
+
+def HLSToRGB(hls):
+    hls = np.array(hls)/255
+    rgb = np.array(hls_to_rgb(hls))*255
+    return rgb
+
+
+def HLSToHSV(hls):
+    rgb = HLSToRGB(hls)
+    return RGBToHSV(rgb)
+
+
+def HLSToYIQ(hls):
+    rgb = HLSToRGB(hls)
+    return RGBToYIQ(rgb)
