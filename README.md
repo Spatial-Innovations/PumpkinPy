@@ -22,6 +22,9 @@
 
 ## Changelog
 
+* Version 0.3.7
+  * Pygame Color Picker element.
+
 * Version 0.3.6
   * Merged StrawberryPy
   * bpy improvements
