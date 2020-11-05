@@ -25,7 +25,7 @@ class Server:
     Server class, to be created once in the server system.
     """
 
-    def __init__(self, client, ip, port=5555, msgLen=4096):
+    def __init__(self, client, ip: str, port: int = 5555, msgLen: int = 4096):
         """
         Initializes the server.
         :param client: Client class (customized) to use.
@@ -42,7 +42,7 @@ class Server:
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((ip, port))
 
-    def Start(self, cleanup=True):
+    def Start(self, cleanup: bool = True):
         """
         Starts the server.
         :param cleanup: If True, will remove inactive clients.
@@ -71,7 +71,7 @@ class CustClient:
     Base client class, to be customized and used server side.
     """
 
-    def __init__(self, conn, addr, msgLen):
+    def __init__(self, conn, addr, msgLen: int):
         """
         Initializes the client. This will be called by the server.
         :param conn: Connection of client.
@@ -110,7 +110,7 @@ class Client:
     Client class, to be used once client side. 
     """
 
-    def __init__(self, ip, port, msgLen=4096):
+    def __init__(self, ip: str, port: int, msgLen: int = 4096):
         """
         Initializes the client.
         :param ip: Ip of server
