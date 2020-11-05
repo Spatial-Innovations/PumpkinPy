@@ -15,7 +15,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-def Bubble(array):
+def Bubble(array) -> list:
     """
     Sorts a list with the bubble sorting algorithm.
     :param array: Iterable of ints or floats.

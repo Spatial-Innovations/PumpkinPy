@@ -19,7 +19,7 @@ from PIL import Image
 import os
 
 
-def Resize(imagePath, newSize, replaceFile=False):
+def Resize(imagePath, newSize, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image.thumbnail(newSize)
 
@@ -32,7 +32,7 @@ def Resize(imagePath, newSize, replaceFile=False):
         image.save(imagePath)
 
 
-def Rotate(imagePath, rotation, replaceFile=False):
+def Rotate(imagePath, rotation, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.rotate(-rotation)
 
@@ -45,7 +45,7 @@ def Rotate(imagePath, rotation, replaceFile=False):
         image.save(imagePath)
 
 
-def Crop(imagePath, leftBound, topBound, rightBound, bottomBound, replaceFile=False):
+def Crop(imagePath, leftBound, topBound, rightBound, bottomBound, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.crop((leftBound, topBound, rightBound, bottomBound))
 
@@ -58,7 +58,7 @@ def Crop(imagePath, leftBound, topBound, rightBound, bottomBound, replaceFile=Fa
         image.save(imagePath)
 
 
-def FlipLeftRight(imagePath, replaceFile=False):
+def FlipLeftRight(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.transpose(Image.FLIP_LEFT_RIGHT)
 
@@ -71,7 +71,7 @@ def FlipLeftRight(imagePath, replaceFile=False):
         image.save(imagePath)
 
 
-def FlipTopBottom(imagePath, replaceFile=False):
+def FlipTopBottom(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.transpose(Image.FLIP_TOP_BOTTOM)
 

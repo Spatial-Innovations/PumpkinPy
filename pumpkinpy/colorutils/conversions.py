@@ -19,67 +19,67 @@ from colorsys import *
 import numpy as np
 
 
-def RGBToHSV(rgb):
+def RGBToHSV(rgb) -> np.array:
     rgb = np.array(rgb)/255
     hsv = np.array(rgb_to_hsv(rgb))*255
     return hsv
 
 
-def RGBToHLS(rgb):
+def RGBToHLS(rgb) -> np.array:
     rgb = np.array(rgb)/255
     hls = np.array(rgb_to_hls(rgb))*255
     return hls
 
 
-def RGBToYIQ(rgb):
+def RGBToYIQ(rgb) -> np.array:
     rgb = np.array(rgb)/255
     yiq = np.array(rgb_to_yiq(rgb))*255
     return yiq
 
 
-def HSVToRGB(hsv):
+def HSVToRGB(hsv) -> np.array:
     hsv = np.array(hsv)/255
     rgb = np.array(hsv_to_rgb(hsv))*255
     return rgb
 
 
-def HSVToYIQ(hsv):
+def HSVToYIQ(hsv) -> np.array:
     rgb = HSVToRGB(hsv)
     return RGBToYIQ(rgb)
 
 
-def HSVToHLS(hsv):
+def HSVToHLS(hsv) -> np.array:
     rgb = HSVToRGB(hsv)
     return RGBToHLS(rgb)
 
 
-def YIQToRGB(yiq):
+def YIQToRGB(yiq) -> np.array:
     yiq = np.array(yiq)/255
     rgb = np.array(yiq_to_rgb(yiq))*255
     return rgb
 
 
-def YIQToHSV(yiq):
+def YIQToHSV(yiq) -> np.array:
     rgb = YIQToRGB(yiq)
     return RGBToHSV(rgb)
 
 
-def YIQToHLS(yiq):
+def YIQToHLS(yiq) -> np.array:
     rgb = YIQToRGB(yiq)
     return RGBToHLS(rgb)
 
 
-def HLSToRGB(hls):
+def HLSToRGB(hls) -> np.array:
     hls = np.array(hls)/255
     rgb = np.array(hls_to_rgb(hls))*255
     return rgb
 
 
-def HLSToHSV(hls):
+def HLSToHSV(hls) -> np.array:
     rgb = HLSToRGB(hls)
     return RGBToHSV(rgb)
 
 
-def HLSToYIQ(hls):
+def HLSToYIQ(hls) -> np.array:
     rgb = HLSToRGB(hls)
     return RGBToYIQ(rgb)

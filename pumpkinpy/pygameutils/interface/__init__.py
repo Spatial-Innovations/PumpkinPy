@@ -15,24 +15,4 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-def Send(conn, msg, header=256) -> None:
-    """
-    Sends a socket message.
-    :param conn: Socket connection.
-    :param msg: Message (bytes).
-    :param header: Length of header message.
-    """
-    length = len(msg)
-    headMsg = (str(length) + " "*(header-length)).encode()
-    conn.send(headMsg)
-    conn.send(msg)
-
-
-def Receive(conn, header=256) -> None:
-    """
-    Receives a socket message.
-    :param conn: Socket connection.
-    :param header: Length of header message.
-    """
-    length = int(conn.recv(header))
-    return conn.recv(length)
+from . import props
