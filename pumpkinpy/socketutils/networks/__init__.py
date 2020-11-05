@@ -15,4 +15,4 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import networks
+from . import general
