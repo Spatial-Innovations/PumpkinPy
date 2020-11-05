@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +22,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pumpkinpy",
-    version="0.3.7",
+    version="0.3.8",
     author="Spatial Innovations",
     author_email="spatialinnovations@gmail.com",
     description="A Python module with utilities for many fields.",

@@ -1,4 +1,4 @@
-# PumpkinPy 0.3.6
+# PumpkinPy 0.3.8
 
 ## An all-purpose Python module
 
@@ -21,6 +21,9 @@
   * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.3.8
+  * Socket networks
+  * Color utils
 
 * Version 0.3.7
   * Pygame Color Picker element.
