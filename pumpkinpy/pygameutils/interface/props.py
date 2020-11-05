@@ -15,11 +15,11 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-def BoolProp(name="", description="", default=False):
+def BoolProp(name: str = "", description: str = "", default: bool = False):
     return {"type": "bool", "name": name, "description": description, "default": default}
 
 
-def IntProp(name="", description="", default: int = 0, **kwargs):
+def IntProp(name: str = "", description: str = "", default: int = 0, **kwargs):
     final = {"type": "int", "name": name,
              "description": description, "default": default}
 
@@ -50,7 +50,7 @@ def IntProp(name="", description="", default: int = 0, **kwargs):
     return final
 
 
-def FloatProp(name="", description="", default: int = 0, **kwargs):
+def FloatProp(name: str = "", description: str = "", default: int = 0, **kwargs):
     final = {"type": "float", "name": name,
              "description": description, "default": default}
 
@@ -81,5 +81,5 @@ def FloatProp(name="", description="", default: int = 0, **kwargs):
     return final
 
 
-def StringProp(name="", description="", default="", maxLen=0):
+def StringProp(name: str = "", description: str = "", default: str = "", maxLen: int = 0):
     return {"type": "str", "name": name, "description": description, "default": default, "maxLen": maxLen}
