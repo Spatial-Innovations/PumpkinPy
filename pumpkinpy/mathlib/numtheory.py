@@ -20,7 +20,7 @@ import math
 import numpy
 
 
-def CheckPrime(num: int):
+def CheckPrime(num: int) -> bool:
     """
     Checks if a integer n is prime.
     :param num: A number.
@@ -34,7 +34,8 @@ def CheckPrime(num: int):
             return False
     return True
 
-def FindFactors(num: int, sort=False):
+
+def FindFactors(num: int, sort=False) -> list:
     """
     Finds all factors of a number.
     :param num: Number to find factors.
@@ -53,7 +54,7 @@ def FindFactors(num: int, sort=False):
         return set(factors)
 
 
-def FindTotatives(num: int):
+def FindTotatives(num: int) -> list:
     """
     Finds all the relative primes of a number which are below that number.
 
@@ -66,7 +67,8 @@ def FindTotatives(num: int):
 
     return totatives
 
-def NumTotatives(num: int):
+
+def NumTotatives(num: int) -> int:
     """
     Finds the number of relative primes of a number which are below that number.
 
@@ -79,7 +81,8 @@ def NumTotatives(num: int):
 
     return amount
 
-def MapRange(num, inRange, outRange):
+
+def MapRange(num, inRange, outRange) -> float:
     """
     Fits the inputted num in the inRange proportionally to the outRange.
 

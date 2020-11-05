@@ -20,7 +20,7 @@ import os
 import numpy as np
 
 
-def Grayscale(imagePath, replaceFile=False):
+def Grayscale(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.convert(mode="L")
     if replaceFile:
@@ -32,7 +32,7 @@ def Grayscale(imagePath, replaceFile=False):
         image.save(imagePath)
 
 
-def GaussianBlur(imagePath, blurRadius, replaceFile=False):
+def GaussianBlur(imagePath, blurRadius, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = Image.filter(ImageFilter.GaussianBlur(blurRadius))
 
@@ -45,7 +45,7 @@ def GaussianBlur(imagePath, blurRadius, replaceFile=False):
         image.save(imagePath)
 
 
-def EnhanceColor(imagePath, factor, replaceFile=False):
+def EnhanceColor(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Color(image).enhance(factor)
 
@@ -58,7 +58,7 @@ def EnhanceColor(imagePath, factor, replaceFile=False):
         image.save(imagePath)
 
 
-def EnhanceContrast(imagePath, factor, replaceFile=False):
+def EnhanceContrast(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Contrast(image).enhance(factor)
 
@@ -71,7 +71,7 @@ def EnhanceContrast(imagePath, factor, replaceFile=False):
         image.save(imagePath)
 
 
-def EnhanceBrightness(imagePath, factor, replaceFile=False):
+def EnhanceBrightness(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Brightness(image).enhance(factor)
 
@@ -84,7 +84,7 @@ def EnhanceBrightness(imagePath, factor, replaceFile=False):
         image.save(imagePath)
 
 
-def EnhanceSharpness(imagePath, factor, replaceFile=False):
+def EnhanceSharpness(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Sharpness(image).enhance(factor)
 
@@ -97,7 +97,7 @@ def EnhanceSharpness(imagePath, factor, replaceFile=False):
         image.save(imagePath)
 
 
-def Blend(image1Path, image2Path, factor, replaceFile=False):
+def Blend(image1Path, image2Path, factor, replaceFile=False) -> None:
     image1 = Image.open(image1Path)
     image2 = Image.open(image2Path)
     image = Image.blend(image1, image2, factor)
@@ -111,7 +111,7 @@ def Blend(image1Path, image2Path, factor, replaceFile=False):
         image.save(imagePath)
 
 
-def Invert(imagePath, replaceFile=False):
+def Invert(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath).convert("RGB")
     image = ImageOps.invert(image)
 
@@ -124,7 +124,7 @@ def Invert(imagePath, replaceFile=False):
         image.save(imagePath)
 
 
-def ChangeColorCount(imagePath, colorCount, replaceFile=False):
+def ChangeColorCount(imagePath, colorCount, replaceFile=False) -> None:
     image = Image.open(imagePath).convert("RGB")
     pixels = np.array(image)
 
@@ -159,7 +159,7 @@ def ChangeColorCount(imagePath, colorCount, replaceFile=False):
         image.save(imagePath)
 
 
-def Dither(imagePath, factor, replaceFile=False):
+def Dither(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath).convert("RGB")
     pixels = np.array(image, dtype=np.float64)
 

@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -18,7 +18,8 @@
 import os
 import zlib
 
-def Compress(path):
+
+def Compress(path) -> None:
     """
     Compresses a file with zlib compression, then stores to path + "_comp".
     :param path: Path of file to compress (works best with text files).
@@ -33,7 +34,8 @@ def Compress(path):
     with open(os.path.join(parent, filename), "wb") as file:
         file.write(zlib.compress(uncompressed))
 
-def Decompress(path):
+
+def Decompress(path) -> None:
     """
     Decompresses a file with zlib compression, then stores to path + "_uncomp".
     :param path: Path of file to decompress.

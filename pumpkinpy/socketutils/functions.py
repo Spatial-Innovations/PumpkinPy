@@ -1,5 +1,5 @@
 #  ##### BEGIN GPL LICENSE BLOCK #####
-# 
+#
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
@@ -15,7 +15,7 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-def Send(conn, msg, header=256):
+def Send(conn, msg, header=256) -> None:
     """
     Sends a socket message.
     :param conn: Socket connection.
@@ -28,7 +28,7 @@ def Send(conn, msg, header=256):
     conn.send(msg)
 
 
-def Receive(conn, header=256):
+def Receive(conn, header=256) -> None:
     """
     Receives a socket message.
     :param conn: Socket connection.

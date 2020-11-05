@@ -19,7 +19,7 @@ from PIL import Image
 import os
 
 
-def ToPng(imagePath, replaceFile=False):
+def ToPng(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath)
     if replaceFile:
         image.save(imagePath.split(".")[0] + ".png")
@@ -31,7 +31,7 @@ def ToPng(imagePath, replaceFile=False):
         image.save(imagePath)
 
 
-def ToJpg(imagePath, replaceFile=False):
+def ToJpg(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath).convert(mode="RGB")
     if replaceFile:
         image.save(imagePath.split(".")[0] + ".jpg")
