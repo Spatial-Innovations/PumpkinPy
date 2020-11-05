@@ -428,9 +428,9 @@ class BarGraph:
 
 
 class ColorPicker:
-    def __init__(self, wheelPos, wheelRad, sliderPos, sliderSize, sliderHoriz, cursorRad, displayRectLoc, displayRectSize=(150, 150)):
+    def __init__(self, wheelPos, wheelRad, sliderPos, sliderSize, sliderHoriz, sliderInvert, cursorRad, displayRectLoc, displayRectSize=(150, 150)):
         self.wheelPos, self.wheelRad = wheelPos, wheelRad
-        self.sliderPos, self.sliderSize, self.sliderHoriz = sliderPos, sliderSize, sliderHoriz
+        self.sliderPos, self.sliderSize, self.sliderHoriz, self.sliderInvert = sliderPos, sliderSize, sliderHoriz, sliderInvert
         self.cursorRad = cursorRad
         self.displayRectLoc, self.displayRectSize = displayRectLoc, displayRectSize
         self.wheelCursor, self.sliderCursor = list((wheelPos[0] - cursorRad, wheelPos[1] - cursorRad)), list(
@@ -444,7 +444,6 @@ class ColorPicker:
         self._CreateWheel()
         self._CreateSlider()
         self._CreateCursor()
-        self._UpdateSlider()
         self._UpdateWheel()
 
     def Draw(self, window):
@@ -464,7 +463,6 @@ class ColorPicker:
             x, y = pygame.mouse.get_pos()
             if ((self.wheelPos[0] - x)**2 + (self.wheelPos[1] - y)**2)**0.5 < self.wheelRad - 2:
                 self.wheelCursor = (x - self.cursorRad, y - self.cursorRad)
-                self._UpdateSlider()
             elif self.sliderPos[0] < x < self.sliderPos[0] + self.sliderSize[0] and self.sliderPos[1] < y < self.sliderPos[1] + self.sliderSize[1]:
                 self.sliderCursor[1] = y - self.cursorRad
                 self._UpdateWheel()
@@ -484,9 +482,6 @@ class ColorPicker:
         rgb = (np.array(self.GetRGB())/255)[:3]
         return np.array(rgb_to_hsv(*rgb))*255
 
-    def _UpdateSlider(self):
-        pass
-
     def _UpdateWheel(self):
         pygame.draw.circle(self.wheelDarken, (0, 0, 0, np.interp(
             self.GetHSV()[2], (0, 255), (255, 0))), (self.wheelRad,)*2, self.wheelRad)
@@ -499,11 +494,18 @@ class ColorPicker:
         w, h = self.sliderSize
         if self.sliderHoriz:
             for x in range(w):
-                pass
+                if self.sliderInvert:
+                    value = np.interp(x, (0, w), (0, 255))
+                else:
+                    value = np.interp(x, (0, w), (255, 0))
+                pygame.draw.rect(self.sliderSurf, (value,)*3, (x, 0, 1, h))
 
         else:
             for y in range(h):
-                value = np.interp(y, (0, h), (255, 0))
+                if self.sliderInvert:
+                    value = np.interp(y, (0, h), (0, 255))
+                else:
+                    value = np.interp(y, (0, h), (255, 0))
                 pygame.draw.rect(self.sliderSurf, (value,)*3, (0, y, w, 1))
         pygame.draw.rect(self.sliderSurf, (0, 0, 0), (0, 0, w, h), 1)
 
