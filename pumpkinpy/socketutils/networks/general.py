@@ -40,7 +40,7 @@ class Server:
         self.server.listen()
         while True:
             conn, addr = self.server.accept()
-            client = self.clientClass(conn, addr)
+            client = self.clientClass(conn, addr, self.msgLen)
             self.clients.append(client)
             threading.Thread(target=client.Start(), args=()).start()
 
@@ -52,6 +52,18 @@ class Server:
 
 
 class Client:
-    def __init__(self, conn, addr):
+    def __init__(self, conn, addr, msgLen):
         self.conn = conn
         self.addr = addr
+        self.msgLen = msgLen
+
+    def Start(self):
+        """"""
+
+    def Send(self, obj):
+        data = pickle.dumps(obj)
+        self.conn.send(data)
+
+    def Receive(self):
+        data = self.conn.recv(self.msgLen)
+        return pickle.loads(data)
