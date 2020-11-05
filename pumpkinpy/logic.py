@@ -15,19 +15,15 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import pygameutils
-from . import algorithms
-from . import mathlib
-from . import view3d
-from . import socketutils
-from . import imageutils
-from . import app
-from . import colorutils
-from . import logic
+class Switch:
+    def __init__(self):
+        self.var = None
 
-print("""
-Python module PumpkinPy
-Owner: Spatial Innovations <https://github.com/Spatial-Innovations>
-Contributors:
-    Patrick Huang <https://github.com/HuangPatrick16777216>
-    Arjun Sahlot <https://github.com/ArjunSahlot>""")
+    def Switch(self, var):
+        self.var = var
+
+    def Case(self, value):
+        return self.var == value
+
+    def Default(self):
+        return True
