@@ -79,3 +79,7 @@ def FloatProp(name="", description="", default: int = 0, **kwargs):
             final["soft_max"] = soft_max
 
     return final
+
+
+def StringProp(name="", description="", default="", maxLen=0):
+    return {"type": "str", "name": name, "description": description, "default": default, "maxLen": maxLen}
