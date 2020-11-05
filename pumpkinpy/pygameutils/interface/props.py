@@ -19,7 +19,7 @@ def BoolProp(name="", description="", default=False):
     return {"type": "bool", "name": name, "description": description, "default": default}
 
 
-def IntProp(name="", description="", default=0, **kwargs):
+def IntProp(name="", description="", default: int = 0, **kwargs):
     final = {"type": "int", "name": name,
              "description": description, "default": default}
 
@@ -46,3 +46,5 @@ def IntProp(name="", description="", default=0, **kwargs):
             if soft_max > maximum:
                 raise ValueError("Soft maximum is greater than maximum.")
             final["soft_max"] = soft_max
+
+    return final
