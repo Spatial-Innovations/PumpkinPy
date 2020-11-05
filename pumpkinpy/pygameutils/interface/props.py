@@ -83,3 +83,7 @@ def FloatProp(name: str = "", description: str = "", default: int = 0, **kwargs)
 
 def StringProp(name: str = "", description: str = "", default: str = "", maxLen: int = 0):
     return {"type": "str", "name": name, "description": description, "default": default, "maxLen": maxLen}
+
+
+def EnumProp(name: str = "", description: str = "", items: list = "", expand: bool = False):
+    return {"name": name, "description": description, "items": items, "expand": expand}
