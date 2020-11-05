@@ -66,9 +66,9 @@ class Server:
                     del self.clients[i]
 
 
-class Client:
+class CustClient:
     """
-    Base client class, to be customized.
+    Base client class, to be customized and used server side.
     """
 
     def __init__(self, conn, addr, msgLen):
@@ -88,6 +88,38 @@ class Client:
         The customized function. This will be called on a separate thread when the client is accepted.
         Remember to create a disconnect protocol.
         """
+
+    def Send(self, obj):
+        """
+        Sends an object to the client computer.
+        :param obj: Object to send.
+        """
+        data = pickle.dumps(obj)
+        self.conn.send(data)
+
+    def Receive(self):
+        """
+        Receives an object from the client computer.
+        """
+        data = self.conn.recv(self.msgLen)
+        return pickle.loads(data)
+
+
+class Client:
+    """
+    Client class, to be used once client side. 
+    """
+
+    def __init__(self, ip, port, msgLen=4096):
+        """
+        Initializes the client.
+        :param ip: Ip of server
+        :param port: Port of server
+        :param msgLen: Message length.
+        """
+        self.msgLen = msgLen
+        self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.conn.connect((ip, port))
 
     def Send(self, obj):
         """
