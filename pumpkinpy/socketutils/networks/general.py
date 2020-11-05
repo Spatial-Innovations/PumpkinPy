@@ -40,6 +40,9 @@ class Server:
         self.server.listen()
         while True:
             conn, addr = self.server.accept()
+            client = self.clientClass(conn, addr)
+            self.clients.append(client)
+            threading.Thread(target=client.Start(), args=()).start()
 
     def _Cleanup(self):
         while True:
