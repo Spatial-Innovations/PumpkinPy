@@ -17,6 +17,9 @@
   * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.3.9
+  * Pygame interface
+  * Switcher
 
 * Version 0.3.8
   * Socket networks
