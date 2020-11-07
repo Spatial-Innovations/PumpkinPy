@@ -19,6 +19,7 @@ import pygame
 import numpy as np
 import random
 from colorsys import hsv_to_rgb, rgb_to_hsv
+from .errors import *
 
 pygame.init()
 
@@ -26,7 +27,7 @@ pygame.init()
 class ButtonText:
     """
     class ButtonText: General purpose text-based button.
-    button.Draw(WINDOW); button.Update() in game loop
+    button.Draw(WINDOW) in game loop
     button.clicked to check if clicked.
     """
 
@@ -41,7 +42,7 @@ class ButtonText:
         :param text: Pygame text object (obtained from font.render())
         :param textOffset: Offset location of text from center of button: (10, 10)
         :param border: Width of border (set to 0 to disable).
-        :param borderCol=None: Color of border (ignored if no border).
+        :param borderCol: Color of border (ignored if no border).
         :param clickButton: Mouse button to register as a click (0 for left, 1 for middle, and 2 for right).
         """
         self.loc = loc
@@ -100,7 +101,7 @@ class TextInput:
         Input text class for Pygame.
         :param loc: Pixel location (x, y).
         :param size: Pixel size (x, y).
-        :param bgCol: Backgint color (RGB).
+        :param bgCol: Background color (R, G, B).
         :param borderWidth: Width of border (pixels).
         :param borderCol: Color of border (RGB).
         :param initialText: Text to start with.
@@ -298,6 +299,8 @@ class Slider:
         self.x, self.y = int(rectLoc[0]), int(rectLoc[1])
         self.width, self.height = int(rectSize[0]), int(rectSize[1])
         self.rectCol, self.circleCol = rectCol, circleCol
+        if not (valRange[0] <= initialVal <= valRange[1]):
+            raise InputError("PumpkinPy: the initial value is not within the value range")
         self.valRange = valRange[0], valRange[1] + 1
         self.value = initialVal
         self.font, self.text = font, text
@@ -365,7 +368,11 @@ class BarGraph:
 
         self.x, self.y = loc[0], loc[1]
         self.width, self.height = size[0], size[1]
+
+        if len(categories) != len(values):
+            raise InputError("PumpkinPy: the length of the categories should equal the length of the values")
         self.categories, self.values = categories, values
+
         if horiz:
             self.catWidth = (self.height - adjust - len(categories)
                              * gap)//len(categories) * widthScale

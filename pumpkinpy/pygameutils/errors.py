@@ -15,18 +15,6 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from PIL import Image
-import os
-from ._utils import *
 
-
-def ToPng(imagePath, replaceFile=False) -> None:
-    image = Image.open(imagePath)
-
-    _SaveFile(image, imagePath, replaceFile, fileExt=".png")
-
-
-def ToJpg(imagePath, replaceFile=False) -> None:
-    image = Image.open(imagePath).convert(mode="RGB")
-
-    _SaveFile(image, imagePath, replaceFile, fileExt=".jpg")
+class InputError(Exception):
+    pass
