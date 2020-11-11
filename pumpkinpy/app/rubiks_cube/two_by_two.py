@@ -106,4 +106,4 @@ pos = [["Y", "Y", "O", "O"], ["B", "B", "B", "B"], ["R", "R", "W", "W"],
 cube = Cube(position=pos, finalDepth=8)
 cube.Search()
 for s in cube.solutions:
-    print(len(s))
+    print(s)
