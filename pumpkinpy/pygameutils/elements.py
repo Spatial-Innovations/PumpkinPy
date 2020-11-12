@@ -525,7 +525,32 @@ class ColorPicker:
 
 
 class Checkbox:
-    def __init__(self, loc, size, text="Checkbox", font=pygame.font.SysFont("comicsans", 35)):
+    def __init__(self, loc, size, checkCol=(0, 0, 0), padding=5, text="Checkbox", font=pygame.font.SysFont("comicsans", 80)):
         self.loc, self.size = loc, size
         self.text = text
         self.font = font
+        self.color = checkCol
+        self.padding = padding
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join(os.path.realpath(os.path.dirname(__file__)), "checkmark.png")), (size[0] - padding*2, size[1] - padding*2))
+        self.checked = False
+        if checkCol != (0,)*3:
+            self.ChangeCheckColor(checkCol)
+
+    def Draw(self, window, events):
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.Rect(*self.loc, *self.size).collidepoint(event.pos):
+                    self.checked = not self.checked
+
+        pygame.draw.rect(window, (0, 0, 0), (*self.loc, *self.size), 3)
+        text = self.font.render(self.text, 1, (0, 0, 0))
+        window.blit(text, (self.loc[0] + self.size[0] + 5, self.loc[1] + self.size[1]//2 - text.get_height()//2))
+        if self.checked:
+            window.blit(self.image, (self.loc[0] + self.padding, self.loc[1] + self.padding))
+
+    def ChangeCheckColor(self, color):
+        w, h = self.image.get_size()
+        for x in range(w):
+            for y in range(h):
+                if self.image.get_at((x, y))[3] != 0:
+                    self.image.set_at((x, y), color)
