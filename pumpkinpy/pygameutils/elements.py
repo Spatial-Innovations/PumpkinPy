@@ -522,3 +522,10 @@ class ColorPicker:
                            (self.cursorRad,)*2, self.cursorRad)
         pygame.draw.circle(self.cursorSurf, (0, 0, 0),
                            (self.cursorRad,)*2, self.cursorRad, 2)
+
+
+class Checkbox:
+    def __init__(self, loc, size, text="Checkbox", font=pygame.font.SysFont("comicsans", 35)):
+        self.loc, self.size = loc, size
+        self.text = text
+        self.font = font
