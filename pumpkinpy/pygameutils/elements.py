@@ -554,3 +554,14 @@ class Checkbox:
             for y in range(h):
                 if self.image.get_at((x, y))[3] != 0:
                     self.image.set_at((x, y), color)
+
+
+class Dropdown:
+    def __init__(self, loc, size, initialText, popSize, choices, font, color, highlightCol):
+        self.loc, self.size = loc, size
+        self.initialText = initialText
+        self.popSize = popSize
+        self.choices = choices
+        self.font = font
+        self.color = color
+        self.highlightCol = highlightCol
