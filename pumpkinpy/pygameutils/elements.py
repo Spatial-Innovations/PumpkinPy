@@ -580,12 +580,19 @@ class Dropdown:
     def Draw(self, window, events):
         self._Update(window, events)
 
+
         pygame.draw.rect(window, self.borderCol, (*self.loc, *self.size), self.border)
+        left = self.triRect[0]
+        middle = self.triRect[0] + self.triRect[2]//2
+        right = self.triRect[0] + self.triRect[2]
+        top = self.triRect[1]
+        bottom = self.triRect[1] + self.triRect[3]
+
         if self.popped:
-            pygame.draw.polygon(window, self.borderCol, ((self.triRect[0] + self.triRect[2]//2, self.triRect[1]), (self.triRect[0], self.triRect[1] + self.triRect[3]), (self.triRect[0] + self.triRect[2], self.triRect[1] + self.triRect[3])))
+            pygame.draw.polygon(window, self.borderCol, ((middle, top), (left, bottom), (right, bottom)))
             pygame.draw.rect(window, self.borderCol, (*self.popLoc, *self.popSize), self.popBorder)
         else:
-            pygame.draw.polygon(window, self.borderCol, ((self.triRect[0] + self.triRect[2]//2, self.triRect[1] + self.triRect[3]), (self.triRect[0], self.triRect[1]), (self.triRect[0] + self.triRect[2], self.triRect[1])))
+            pygame.draw.polygon(window, self.borderCol, ((middle, bottom), (left, top), (right, top)))
 
     def _Update(self, window, events):
         width = self.size[1] - self.triPadding*2
