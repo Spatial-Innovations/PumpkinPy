@@ -2,6 +2,7 @@
 ## An all-purpose Python module
 ### by Spatial Innovations
 
+### Features
 * Algorithms
   * Bubble Sort
 * Applications
