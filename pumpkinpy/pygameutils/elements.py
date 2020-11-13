@@ -557,18 +557,45 @@ class Checkbox:
 
 
 class Dropdown:
-    def __init__(self, loc, size, initialText, popSize, choices, font, color, highlightCol):
+    
+    border = 5
+    popBorder = 3
+    borderCol = (0, 0, 0)
+
+    def __init__(self, loc, size, initialText, popSize, choices, font, color, highlightCol, triPadding=15):
         self.loc, self.size = loc, size
-        self.initialText = initialText
+        self.selected = initialText
+        self.popLoc = (loc[0] + size[0]//2 - popSize[0]//2, loc[1] + size[1])
         self.popSize = popSize
         self.choices = choices
         self.font = font
         self.color = color
         self.highlightCol = highlightCol
+        self.triPadding = triPadding
         self.popped = False
+        self.triRect = None
+        self.surf = pygame.Surface((popSize))
+        self.siderY = 0
 
     def Draw(self, window, events):
-        self._Update(events)
+        self._Update(window, events)
 
-    def _Update(self, events):
-        pass
+        pygame.draw.rect(window, self.borderCol, (*self.loc, *self.size), self.border)
+        if self.popped:
+            pygame.draw.polygon(window, self.borderCol, ((self.triRect[0] + self.triRect[2]//2, self.triRect[1]), (self.triRect[0], self.triRect[1] + self.triRect[3]), (self.triRect[0] + self.triRect[2], self.triRect[1] + self.triRect[3])))
+            pygame.draw.rect(window, self.borderCol, (*self.popLoc, *self.popSize), self.popBorder)
+        else:
+            pygame.draw.polygon(window, self.borderCol, ((self.triRect[0] + self.triRect[2]//2, self.triRect[1] + self.triRect[3]), (self.triRect[0], self.triRect[1]), (self.triRect[0] + self.triRect[2], self.triRect[1])))
+
+    def _Update(self, window, events):
+        width = self.size[1] - self.triPadding*2
+        self.triRect = (self.loc[0] + self.size[0] - self.triPadding - width, self.loc[1] + self.triPadding, width, width)
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.Rect(*self.loc, *self.size).collidepoint(event.pos):
+                    self.popped = not self.popped
+                else:
+                    self.popped = False
+
+        if pygame.Rect(*self.loc, *self.size).collidepoint(pygame.mouse.get_pos()):
+            pygame.draw.rect(window, self.highlightCol, (*self.loc, *self.size))
