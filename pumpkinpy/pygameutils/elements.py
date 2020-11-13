@@ -572,7 +572,7 @@ class Dropdown:
         self.color = color
         self.highlightCol = highlightCol
         self.triPadding = triPadding
-        self.textboxSize = (self.size[0], self.font.render("A", 1, (0, 0, 0)).get_height() + textPadding*2)
+        self.textboxSize = (self.popSize[0], self.font.render("A", 1, (0, 0, 0)).get_height() + textPadding*2)
         self.textboxPadding = textboxPadding
         self.sensitivity, self.rounding = sensitivity, rounding
         self.popped = False
@@ -609,7 +609,7 @@ class Dropdown:
         for i, text in enumerate(self.choices):
             y = i * self.textboxSize[1] + self.sliderY
             if pygame.Rect(self.popLoc[0], y + self.popLoc[1], *self.textboxSize).collidepoint(mX, mY) or self.choices[i] == self.selected:
-                pygame.draw.rect(self.surf, self.highlightCol, (self.popLoc[0] + self.textboxPadding//2 - 50, y + self.textboxPadding//2, self.textboxSize[0] - self.textboxPadding, self.textboxSize[1] - self.textboxPadding), border_radius=self.rounding)
+                pygame.draw.rect(self.surf, self.highlightCol, (self.textboxPadding//2, y + self.textboxPadding//2, self.textboxSize[0] - self.textboxPadding, self.textboxSize[1] - self.textboxPadding), border_radius=self.rounding)
             text = self.font.render(text, 1, self.color)
             self.surf.blit(text, (self.textboxSize[0]//2 - text.get_width()//2, y + self.textboxSize[1]//2 - text.get_height()//2))
 
@@ -640,16 +640,3 @@ class Dropdown:
                     self.sliderY -= self.sensitivity
                 self.sliderY = min(self.sliderY, 0)
                 self.sliderY = max(self.sliderY, -self.textboxSize[1]*(len(self.choices)-1))
-
-
-win = pygame.display.set_mode((800, 800))
-box = Dropdown((50, 50), (200, 50), (200, 300))
-
-while True:
-    win.fill((255, 255, 200))
-    events = pygame.event.get()
-    box.Draw(win, events)
-    for event in events:
-        if event.type == pygame.QUIT:
-            exit()
-    pygame.display.update()
