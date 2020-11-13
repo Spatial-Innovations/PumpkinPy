@@ -18,6 +18,7 @@
 from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import os
 import numpy as np
+import pygame
 from ._utils import _SaveFile
 
 
@@ -150,3 +151,9 @@ def Dither(imagePath, factor, replaceFile=False) -> None:
 
     _SaveFile(image, imagePath, replaceFile)
 
+
+def Pixelate(imagePath, widthRes, heightRes, replaceFile):
+    image = pygame.image.load(imagePath)
+    width, height = image.get_size()
+    image = pygame.transform.scale(pygame.transform.scale(pygame.image.load(imagePath), (widthRes, heightRes)), (width, height))
+    pygame.image.save(image, imagePath if replaceFile else imagePath.split(".")[0] + "_ppy" + imagePath.split(".")[-1])
