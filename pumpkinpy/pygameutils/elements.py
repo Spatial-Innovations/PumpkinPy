@@ -565,3 +565,10 @@ class Dropdown:
         self.font = font
         self.color = color
         self.highlightCol = highlightCol
+        self.popped = False
+
+    def Draw(self, window, events):
+        self._Update(events)
+
+    def _Update(self, events):
+        pass
