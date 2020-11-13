@@ -19,7 +19,7 @@ import pygame
 import numpy as np
 import random
 from colorsys import hsv_to_rgb, rgb_to_hsv
-from .errors import *
+# from .errors import *
 
 pygame.init()
 
@@ -562,7 +562,7 @@ class Dropdown:
     popBorder = 3
     borderCol = (0, 0, 0)
 
-    def __init__(self, loc, size, initialText, popSize, choices, font, color, highlightCol, textPadding=10, triPadding=15):
+    def __init__(self, loc, size, popSize, initialText="Select", choices=("A", "B", "C", "D", "E", "F", "G", "H"), font=pygame.font.SysFont("comicsans", 35), color=(0, 0, 0), highlightCol=(80, 80, 255), rounding=10, textPadding=10, textboxPadding=10, triPadding=15, sensitivity=5):
         self.loc, self.size = loc, size
         self.selected = initialText
         self.popLoc = (loc[0] + size[0]//2 - popSize[0]//2, loc[1] + size[1])
@@ -571,17 +571,22 @@ class Dropdown:
         self.font = font
         self.color = color
         self.highlightCol = highlightCol
-        self.triPadding, textPadding = triPadding, textPadding
+        self.triPadding = triPadding
         self.textboxSize = (self.size[0], self.font.render("A", 1, (0, 0, 0)).get_height() + textPadding*2)
+        self.textboxPadding = textboxPadding
+        self.sensitivity, self.rounding = sensitivity, rounding
         self.popped = False
-        self.triRect = None
-        self.surf = pygame.Surface(popSize)
+        width = self.size[1] - self.triPadding*2
+        self.triRect = (self.loc[0] + self.size[0] - self.triPadding - width, self.loc[1] + self.triPadding, width, width)
+        self.surf = pygame.Surface(popSize, pygame.SRCALPHA)
         self.sliderY = 0
 
     def Draw(self, window, events):
         self._Update(window, events)
 
-        pygame.draw.rect(window, self.borderCol, (*self.loc, *self.size), self.border)
+        pygame.draw.rect(window, self.borderCol, (*self.loc, *self.size), self.border, self.rounding)
+        text = self.font.render(self.selected, 1, self.color)
+        window.blit(text, (self.loc[0] + self.size[0]//2 - text.get_width()//2, self.loc[1] + self.size[1]//2 - text.get_height()//2))
 
 
         left = self.triRect[0]
@@ -592,19 +597,59 @@ class Dropdown:
 
         if self.popped:
             pygame.draw.polygon(window, self.borderCol, ((middle, top), (left, bottom), (right, bottom)))
-            pygame.draw.rect(window, self.borderCol, (*self.popLoc, *self.popSize), self.popBorder)
+            pygame.draw.rect(window, self.borderCol, (*self.popLoc, *self.popSize), self.popBorder, border_bottom_left_radius=self.rounding, border_bottom_right_radius=self.rounding)
+            self._DrawSurf()
+            window.blit(self.surf, self.popLoc)
         else:
             pygame.draw.polygon(window, self.borderCol, ((middle, bottom), (left, top), (right, top)))
 
+    def _DrawSurf(self):
+        self.surf.fill((0, 0, 0, 0))
+        mX, mY = pygame.mouse.get_pos()
+        for i, text in enumerate(self.choices):
+            y = i * self.textboxSize[1] + self.sliderY
+            if pygame.Rect(self.popLoc[0], y + self.popLoc[1], *self.textboxSize).collidepoint(mX, mY) or self.choices[i] == self.selected:
+                pygame.draw.rect(self.surf, self.highlightCol, (self.popLoc[0] + self.textboxPadding//2 - 50, y + self.textboxPadding//2, self.textboxSize[0] - self.textboxPadding, self.textboxSize[1] - self.textboxPadding), border_radius=self.rounding)
+            text = self.font.render(text, 1, self.color)
+            self.surf.blit(text, (self.textboxSize[0]//2 - text.get_width()//2, y + self.textboxSize[1]//2 - text.get_height()//2))
+
     def _Update(self, window, events):
-        width = self.size[1] - self.triPadding*2
-        self.triRect = (self.loc[0] + self.size[0] - self.triPadding - width, self.loc[1] + self.triPadding, width, width)
+        mX, mY = pygame.mouse.get_pos()
+        if pygame.Rect(*self.loc, *self.size).collidepoint(mX, mY) and not self.popped:
+            pygame.draw.rect(window, self.highlightCol, (*self.loc, *self.size), border_radius=self.rounding)
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    self.popped = not self.popped
+        else:
+            if self.popped:
+                for i in range(len(self.choices)):
+                    y = i * self.textboxSize[1] + self.sliderY
+                    if pygame.Rect(self.popLoc[0], y + self.popLoc[1], *self.textboxSize).collidepoint(mX, mY):
+                        for event in events:
+                            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                                self.selected = self.choices[i]
+
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    self.popped = False
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if pygame.Rect(*self.loc, *self.size).collidepoint(event.pos):
-                    self.popped = not self.popped
-                else:
-                    self.popped = False
+                if event.button == 4:
+                    self.sliderY += self.sensitivity
+                if event.button == 5:
+                    self.sliderY -= self.sensitivity
+                self.sliderY = min(self.sliderY, 0)
+                self.sliderY = max(self.sliderY, -self.textboxSize[1]*(len(self.choices)-1))
 
-        if pygame.Rect(*self.loc, *self.size).collidepoint(pygame.mouse.get_pos()):
-            pygame.draw.rect(window, self.highlightCol, (*self.loc, *self.size))
+
+win = pygame.display.set_mode((800, 800))
+box = Dropdown((50, 50), (200, 50), (200, 300))
+
+while True:
+    win.fill((255, 255, 200))
+    events = pygame.event.get()
+    box.Draw(win, events)
+    for event in events:
+        if event.type == pygame.QUIT:
+            exit()
+    pygame.display.update()
