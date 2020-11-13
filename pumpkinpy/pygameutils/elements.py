@@ -562,7 +562,7 @@ class Dropdown:
     popBorder = 3
     borderCol = (0, 0, 0)
 
-    def __init__(self, loc, size, initialText, popSize, choices, font, color, highlightCol, triPadding=15):
+    def __init__(self, loc, size, initialText, popSize, choices, font, color, highlightCol, textPadding=10, triPadding=15):
         self.loc, self.size = loc, size
         self.selected = initialText
         self.popLoc = (loc[0] + size[0]//2 - popSize[0]//2, loc[1] + size[1])
@@ -571,7 +571,8 @@ class Dropdown:
         self.font = font
         self.color = color
         self.highlightCol = highlightCol
-        self.triPadding = triPadding
+        self.triPadding, textPadding = triPadding, textPadding
+        self.textboxSize = (self.size[0], self.font.render("A", 1, (0, 0, 0)).get_height() + textPadding*2)
         self.popped = False
         self.triRect = None
         self.surf = pygame.Surface(popSize)
@@ -580,8 +581,9 @@ class Dropdown:
     def Draw(self, window, events):
         self._Update(window, events)
 
-
         pygame.draw.rect(window, self.borderCol, (*self.loc, *self.size), self.border)
+
+
         left = self.triRect[0]
         middle = self.triRect[0] + self.triRect[2]//2
         right = self.triRect[0] + self.triRect[2]
