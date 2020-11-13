@@ -557,7 +557,7 @@ class Checkbox:
 
 
 class Dropdown:
-    
+
     border = 5
     popBorder = 3
     borderCol = (0, 0, 0)
