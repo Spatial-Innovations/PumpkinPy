@@ -574,8 +574,8 @@ class Dropdown:
         self.triPadding = triPadding
         self.popped = False
         self.triRect = None
-        self.surf = pygame.Surface((popSize))
-        self.siderY = 0
+        self.surf = pygame.Surface(popSize)
+        self.sliderY = 0
 
     def Draw(self, window, events):
         self._Update(window, events)
