@@ -255,8 +255,8 @@ class TextInput:
 
         if self.cursorVisible:
             cursorY = self.font.size(self.text[:self.cursorPos])[0]
-            # if self.cursorPos > 0:
-            cursorY -= self.cursorSurf.get_width()
+            if self.cursorPos > 0:
+                cursorY -= self.cursorSurf.get_width()
             if self.editing:
                 self.surface.blit(self.cursorSurf, (cursorY, 0))
 
