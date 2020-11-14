@@ -242,7 +242,11 @@ class TextInput:
         string = self.text
         if self.password:
             string = "*" * len(self.text)
-        self.surface = self.font.render(str(string), 1, self.textCol)
+        if self.text:
+            self.surface = self.font.render(str(string), 1, self.textCol)
+        else:
+            self.surface = pygame.Surface(self.cursorSurf.get_size(), pygame.SRCALPHA)
+            self.surface.fill((0, 0, 0, 0))
 
         self.cursorCounter += self.clock.get_time()
         if self.cursorCounter >= self.cursorSwitch:
@@ -251,8 +255,8 @@ class TextInput:
 
         if self.cursorVisible:
             cursorY = self.font.size(self.text[:self.cursorPos])[0]
-            if self.cursorPos > 0:
-                cursorY -= self.cursorSurf.get_width()
+            # if self.cursorPos > 0:
+            cursorY -= self.cursorSurf.get_width()
             if self.editing:
                 self.surface.blit(self.cursorSurf, (cursorY, 0))
 
