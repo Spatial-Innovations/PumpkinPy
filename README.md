@@ -1,4 +1,4 @@
-# PumpkinPy 0.3.8
+# PumpkinPy 0.4.0
 ## An all-purpose Python module
 ### by Spatial Innovations
 
