@@ -640,9 +640,10 @@ class Dropdown:
                     self.popped = False
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 4:
-                    self.sliderY += self.sensitivity
-                if event.button == 5:
-                    self.sliderY -= self.sensitivity
+                if pygame.Rect(*self.popLoc, *self.popSize).collide(mX, mY):
+                    if event.button == 4:
+                        self.sliderY += self.sensitivity
+                    if event.button == 5:
+                        self.sliderY -= self.sensitivity
                 self.sliderY = min(self.sliderY, 0)
                 self.sliderY = max(self.sliderY, -self.textboxSize[1]*(len(self.choices)-1))
