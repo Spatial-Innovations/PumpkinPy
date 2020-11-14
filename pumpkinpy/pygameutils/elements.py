@@ -18,6 +18,7 @@
 import pygame
 import numpy as np
 import random
+import os
 from colorsys import hsv_to_rgb, rgb_to_hsv
 from .errors import *
 
