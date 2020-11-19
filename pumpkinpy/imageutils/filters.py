@@ -18,83 +18,55 @@
 from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import os
 import numpy as np
+import pygame
+from ._utils import _SaveFile
 
 
 def Grayscale(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.convert(mode="L")
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+
+    _SaveFile(image, imagePath, replaceFile)
 
 
 def GaussianBlur(imagePath, blurRadius, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = Image.filter(ImageFilter.GaussianBlur(blurRadius))
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def EnhanceColor(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Color(image).enhance(factor)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def EnhanceContrast(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Contrast(image).enhance(factor)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def EnhanceBrightness(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Brightness(image).enhance(factor)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def EnhanceSharpness(imagePath, factor, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = ImageEnhance.Sharpness(image).enhance(factor)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def Blend(image1Path, image2Path, factor, replaceFile=False) -> None:
@@ -102,26 +74,16 @@ def Blend(image1Path, image2Path, factor, replaceFile=False) -> None:
     image2 = Image.open(image2Path)
     image = Image.blend(image1, image2, factor)
 
-    if replaceFile:
-        image.save(image1Path)
-    else:
-        fileName, fileExt = os.path.splitext(image1Path)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, image1Path, replaceFile)
+
 
 
 def Invert(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath).convert("RGB")
     image = ImageOps.invert(image)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def ChangeColorCount(imagePath, colorCount, replaceFile=False) -> None:
@@ -150,13 +112,8 @@ def ChangeColorCount(imagePath, colorCount, replaceFile=False) -> None:
 
     image = Image.fromarray(pixels)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def Dither(imagePath, factor, replaceFile=False) -> None:
@@ -192,10 +149,11 @@ def Dither(imagePath, factor, replaceFile=False) -> None:
 
     image = Image.fromarray(pixels.astype(np.uint8))
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
+
+def Pixelate(imagePath, widthRes, heightRes, replaceFile):
+    image = pygame.image.load(imagePath)
+    width, height = image.get_size()
+    image = pygame.transform.scale(pygame.transform.scale(pygame.image.load(imagePath), (widthRes, heightRes)), (width, height))
+    pygame.image.save(image, imagePath if replaceFile else imagePath.split(".")[0] + "_ppy" + imagePath.split(".")[-1])

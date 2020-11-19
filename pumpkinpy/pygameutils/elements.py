@@ -18,7 +18,9 @@
 import pygame
 import numpy as np
 import random
+import os
 from colorsys import hsv_to_rgb, rgb_to_hsv
+from .errors import *
 
 pygame.init()
 
@@ -26,7 +28,7 @@ pygame.init()
 class ButtonText:
     """
     class ButtonText: General purpose text-based button.
-    button.Draw(WINDOW); button.Update() in game loop
+    button.Draw(WINDOW) in game loop
     button.clicked to check if clicked.
     """
 
@@ -41,7 +43,7 @@ class ButtonText:
         :param text: Pygame text object (obtained from font.render())
         :param textOffset: Offset location of text from center of button: (10, 10)
         :param border: Width of border (set to 0 to disable).
-        :param borderCol=None: Color of border (ignored if no border).
+        :param borderCol: Color of border (ignored if no border).
         :param clickButton: Mouse button to register as a click (0 for left, 1 for middle, and 2 for right).
         """
         self.loc = loc
@@ -100,7 +102,7 @@ class TextInput:
         Input text class for Pygame.
         :param loc: Pixel location (x, y).
         :param size: Pixel size (x, y).
-        :param bgCol: Backgint color (RGB).
+        :param bgCol: Background color (R, G, B).
         :param borderWidth: Width of border (pixels).
         :param borderCol: Color of border (RGB).
         :param initialText: Text to start with.
@@ -240,7 +242,11 @@ class TextInput:
         string = self.text
         if self.password:
             string = "*" * len(self.text)
-        self.surface = self.font.render(str(string), 1, self.textCol)
+        if self.text:
+            self.surface = self.font.render(str(string), 1, self.textCol)
+        else:
+            self.surface = pygame.Surface(self.cursorSurf.get_size(), pygame.SRCALPHA)
+            self.surface.fill((0, 0, 0, 0))
 
         self.cursorCounter += self.clock.get_time()
         if self.cursorCounter >= self.cursorSwitch:
@@ -275,7 +281,7 @@ class TextInput:
 
 
 class Slider:
-    def __init__(self, rectLoc, rectSize, rectCol=(128, 128, 128), circleCol=(255, 255, 255), valRange=(1, 100), initialVal=20, font=None, text=None, textCol=(0, 0, 0), horiz=True):
+    def __init__(self, rectLoc, rectSize, rectCol=(128, 128, 128), circleCol=(255, 255, 255), valRange=(1, 100), initialVal=20, font=None, text=None, textCol=(0, 0, 0), textVal=False, horiz=True):
         """
         Creates a slider with various tweakable parameters.
 
@@ -298,10 +304,13 @@ class Slider:
         self.x, self.y = int(rectLoc[0]), int(rectLoc[1])
         self.width, self.height = int(rectSize[0]), int(rectSize[1])
         self.rectCol, self.circleCol = rectCol, circleCol
+        if not (valRange[0] <= initialVal <= valRange[1]):
+            raise InputError("PumpkinPy: the initial value is not within the value range")
         self.valRange = valRange[0], valRange[1] + 1
         self.value = initialVal
         self.font, self.text = font, text
         self.textCol = textCol
+        self.textVal = textVal
         self.radius = int(self.height/2) if horiz else int(self.width/2)
         self.radius += 3
         self.horiz = horiz
@@ -342,7 +351,7 @@ class Slider:
                 self.x + self.width/2), int(circleY)), int(self.radius))
 
         if self.font is not None and self.text is not None:
-            text = self.font.render(self.text, 1, self.textCol)
+            text = self.font.render(self.text + ": " + str(self.GetValue()) if self.textVal else self.text, 1, self.textCol)
             window.blit(text, (int(self.x + self.width/2 -
                                    text.get_width()/2), int(self.y + self.height + 5)))
 
@@ -365,7 +374,11 @@ class BarGraph:
 
         self.x, self.y = loc[0], loc[1]
         self.width, self.height = size[0], size[1]
+
+        if len(categories) != len(values):
+            raise InputError("PumpkinPy: the length of the categories should equal the length of the values")
         self.categories, self.values = categories, values
+
         if horiz:
             self.catWidth = (self.height - adjust - len(categories)
                              * gap)//len(categories) * widthScale
@@ -515,3 +528,128 @@ class ColorPicker:
                            (self.cursorRad,)*2, self.cursorRad)
         pygame.draw.circle(self.cursorSurf, (0, 0, 0),
                            (self.cursorRad,)*2, self.cursorRad, 2)
+
+
+class Checkbox:
+    def __init__(self, loc, size, checkCol=(0, 0, 0), padding=5, text="Checkbox", font=pygame.font.SysFont("comicsans", 80)):
+        self.loc, self.size = loc, size
+        self.text = text
+        self.font = font
+        self.color = checkCol
+        self.padding = padding
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join(os.path.realpath(os.path.dirname(__file__)), "checkmark.png")), (size[0] - padding*2, size[1] - padding*2))
+        self.checked = False
+        if checkCol != (0,)*3:
+            self.ChangeCheckColor(checkCol)
+
+    def Draw(self, window, events):
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.Rect(*self.loc, *self.size).collidepoint(event.pos):
+                    self.checked = not self.checked
+
+        pygame.draw.rect(window, (0, 0, 0), (*self.loc, *self.size), 3)
+        text = self.font.render(self.text, 1, (0, 0, 0))
+        window.blit(text, (self.loc[0] + self.size[0] + 5, self.loc[1] + self.size[1]//2 - text.get_height()//2))
+        if self.checked:
+            window.blit(self.image, (self.loc[0] + self.padding, self.loc[1] + self.padding))
+
+    def ChangeCheckColor(self, color):
+        w, h = self.image.get_size()
+        for x in range(w):
+            for y in range(h):
+                if self.image.get_at((x, y))[3] != 0:
+                    self.image.set_at((x, y), color)
+
+
+class Dropdown:
+
+    border = 5
+    popBorder = 3
+    borderCol = (0, 0, 0)
+
+    def __init__(self, loc, size, popSize, bgCol=(255, 255, 255), initialText="Select", choices=("A", "B", "C", "D", "E", "F", "G", "H"), font=pygame.font.SysFont("comicsans", 35), color=(0, 0, 0), highlightCol=(80, 80, 255), rounding=10, textPadding=10, textboxPadding=10, triPadding=15, sensitivity=5):
+        self.loc, self.size = loc, size
+        self.selected = initialText
+        self.popLoc = (loc[0] + size[0]//2 - popSize[0]//2, loc[1] + size[1])
+        self.popSize = popSize
+        self.choices = choices
+        self.font = font
+        self.color = color
+        self.bgCol = bgCol
+        self.highlightCol = highlightCol
+        self.triPadding = triPadding
+        self.textboxSize = (self.popSize[0], self.font.render("A", 1, (0, 0, 0)).get_height() + textPadding*2)
+        self.textboxPadding = textboxPadding
+        self.sensitivity, self.rounding = sensitivity, rounding
+        self.popped = False
+        width = self.size[1] - self.triPadding*2
+        self.triRect = (self.loc[0] + self.size[0] - self.triPadding - width, self.loc[1] + self.triPadding, width, width)
+        self.surf = pygame.Surface(popSize, pygame.SRCALPHA)
+        self.sliderY = 0
+
+    def Draw(self, window, events):
+        pygame.draw.rect(window, self.bgCol, (*self.loc, *self.size), border_radius=self.rounding)
+
+        self._Update(window, events)
+
+        pygame.draw.rect(window, self.borderCol, (*self.loc, *self.size), self.border, self.rounding)
+        text = self.font.render(self.selected, 1, self.color)
+        window.blit(text, (self.loc[0] + self.size[0]//2 - text.get_width()//2, self.loc[1] + self.size[1]//2 - text.get_height()//2))
+
+
+        left = self.triRect[0]
+        middle = self.triRect[0] + self.triRect[2]//2
+        right = self.triRect[0] + self.triRect[2]
+        top = self.triRect[1]
+        bottom = self.triRect[1] + self.triRect[3]
+
+        if self.popped:
+            pygame.draw.polygon(window, self.borderCol, ((middle, top), (left, bottom), (right, bottom)))
+            pygame.draw.rect(window, self.borderCol, (*self.popLoc, *self.popSize), self.popBorder, border_bottom_left_radius=self.rounding, border_bottom_right_radius=self.rounding)
+            self._DrawSurf()
+            window.blit(self.surf, self.popLoc)
+        else:
+            pygame.draw.polygon(window, self.borderCol, ((middle, bottom), (left, top), (right, top)))
+
+    def GetSelection(self):
+        return self.selected
+
+    def _DrawSurf(self):
+        self.surf.fill(self.bgCol)
+        mX, mY = pygame.mouse.get_pos()
+        for i, text in enumerate(self.choices):
+            y = i * self.textboxSize[1] + self.sliderY
+            if pygame.Rect(self.popLoc[0], y + self.popLoc[1], *self.textboxSize).collidepoint(mX, mY) or self.choices[i] == self.selected:
+                pygame.draw.rect(self.surf, self.highlightCol, (self.textboxPadding//2, y + self.textboxPadding//2, self.textboxSize[0] - self.textboxPadding, self.textboxSize[1] - self.textboxPadding), border_radius=self.rounding)
+            text = self.font.render(text, 1, self.color)
+            self.surf.blit(text, (self.textboxSize[0]//2 - text.get_width()//2, y + self.textboxSize[1]//2 - text.get_height()//2))
+
+    def _Update(self, window, events):
+        mX, mY = pygame.mouse.get_pos()
+        if pygame.Rect(*self.loc, *self.size).collidepoint(mX, mY):
+            pygame.draw.rect(window, self.highlightCol, (*self.loc, *self.size), border_radius=self.rounding)
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    self.popped = not self.popped
+        else:
+            if self.popped:
+                for i in range(len(self.choices)):
+                    y = i * self.textboxSize[1] + self.sliderY
+                    if pygame.Rect(self.popLoc[0], y + self.popLoc[1], *self.textboxSize).collidepoint(mX, mY):
+                        for event in events:
+                            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                                self.selected = self.choices[i]
+
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    self.popped = False
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if pygame.Rect(*self.popLoc, *self.popSize).collide(mX, mY):
+                    if event.button == 4:
+                        self.sliderY += self.sensitivity
+                    if event.button == 5:
+                        self.sliderY -= self.sensitivity
+                self.sliderY = min(self.sliderY, 0)
+                self.sliderY = max(self.sliderY, -self.textboxSize[1]*(len(self.choices)-1))

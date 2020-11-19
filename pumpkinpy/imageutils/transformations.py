@@ -17,68 +17,40 @@
 
 from PIL import Image
 import os
+from ._utils import _SaveFile
 
 
 def Resize(imagePath, newSize, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image.thumbnail(newSize)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
+
 
 
 def Rotate(imagePath, rotation, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.rotate(-rotation)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
 
 
 def Crop(imagePath, leftBound, topBound, rightBound, bottomBound, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.crop((leftBound, topBound, rightBound, bottomBound))
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
 
 
 def FlipLeftRight(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.transpose(Image.FLIP_LEFT_RIGHT)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)
 
 
 def FlipTopBottom(imagePath, replaceFile=False) -> None:
     image = Image.open(imagePath)
     image = image.transpose(Image.FLIP_TOP_BOTTOM)
 
-    if replaceFile:
-        image.save(imagePath)
-    else:
-        fileName, fileExt = os.path.splitext(imagePath)
-        fileName += "_ppy"
-        imagePath = fileName + fileExt
-        image.save(imagePath)
+    _SaveFile(image, imagePath, replaceFile)

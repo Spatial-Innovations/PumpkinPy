@@ -18,12 +18,14 @@
 class Switch:
     def __init__(self):
         self.var = None
+        self.cases = []
 
     def Switch(self, var):
         self.var = var
 
     def Case(self, value):
+        self.cases.append(value)
         return self.var == value
 
     def Default(self):
-        return True
+        return not any([self.var == val for val in self.cases])

@@ -15,18 +15,18 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from PIL import Image
 import os
-from ._utils import *
 
-
-def ToPng(imagePath, replaceFile=False) -> None:
-    image = Image.open(imagePath)
-
-    _SaveFile(image, imagePath, replaceFile, fileExt=".png")
-
-
-def ToJpg(imagePath, replaceFile=False) -> None:
-    image = Image.open(imagePath).convert(mode="RGB")
-
-    _SaveFile(image, imagePath, replaceFile, fileExt=".jpg")
+def _SaveFile(image, path, replace, nameExt="_ppy", fileExt=None):
+    if replace:
+        if fileExt is not None:
+            image.save(path.split(".")[0] + fileExt)
+        else:
+            image.save(path)
+    else:
+        fileName, extension = os.path.splitext(path)
+        fileName += nameExt
+        if fileExt is not None:
+            extension = fileExt
+        path = fileName + extension
+        image.save(path)
