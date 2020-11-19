@@ -1,4 +1,4 @@
-# PumpkinPy 0.4.0
+# PumpkinPy 0.4.1
 ## An all-purpose Python module
 ### by Spatial Innovations
 
@@ -77,6 +77,9 @@
   * `pip install pumpkinpy`
 
 ## Changelog
+* Version 0.4.1
+  * Bpy improvements.
+
 * Version 0.3.9
   * Pygame interface
   * Switcher
