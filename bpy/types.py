@@ -15,8 +15,16 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+class Layout:
+    def prop():
+        pass
+    def separator():
+        pass
+    def operator():
+        pass
+
 class Panel:
-    pass
+    layout = Layout()
 class Operator:
     pass
 class PropertyGroup:
