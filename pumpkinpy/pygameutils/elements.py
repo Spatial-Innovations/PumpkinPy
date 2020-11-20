@@ -450,7 +450,7 @@ class ColorPicker:
             (sliderPos[0] + sliderSize[0]//2 - cursorRad, sliderPos[1] + sliderSize[1]//2 - cursorRad))
         self.sliderSurf = pygame.Surface(sliderSize)
         self.wheelSurf = pygame.transform.scale(
-            pygame.image.load("color_picker.png"), (wheelRad*2,)*2)
+            pygame.image.load(os.path.join(os.path.realpath(os.path.dirname(__file__)), "assets", "color_picker.png")), (wheelRad*2,)*2)
         self.cursorSurf = pygame.Surface(
             (self.cursorRad*2,)*2, pygame.SRCALPHA)
         self.wheelDarken = pygame.Surface((wheelRad*2,)*2, pygame.SRCALPHA)
@@ -537,7 +537,7 @@ class Checkbox:
         self.font = font
         self.color = checkCol
         self.padding = padding
-        self.image = pygame.transform.scale(pygame.image.load(os.path.join(os.path.realpath(os.path.dirname(__file__)), "checkmark.png")), (size[0] - padding*2, size[1] - padding*2))
+        self.image = pygame.transform.scale(pygame.image.load(os.path.join(os.path.realpath(os.path.dirname(__file__)), "assets", "checkmark.png")), (size[0] - padding*2, size[1] - padding*2))
         self.checked = False
         if checkCol != (0,)*3:
             self.ChangeCheckColor(checkCol)
