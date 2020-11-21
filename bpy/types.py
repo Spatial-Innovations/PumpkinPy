@@ -23,11 +23,25 @@ class Layout:
     def operator():
         pass
 
+class Object:
+    location = (0, 0, 0)
+    rotation = (0, 0, 0)
+    scale = (0, 0, 0)
+    name = ""
+    pass_index = 0
+    data = None
+    
+    def keyframe_insert(self, data_path, index=-1, frame=0, group="", options=set()):
+        pass
+
+class Scene:
+    pass
+
 class Panel:
     layout = Layout()
+
 class Operator:
-    pass
+    layout = Layout()
+    
 class PropertyGroup:
-    pass
-class Scene:
     pass

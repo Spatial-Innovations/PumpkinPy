@@ -15,8 +15,10 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+from .types import Object
+
 scene = None
-object = None
+object = Object()
 
 selectable_objects = []
 selected_bones = []
