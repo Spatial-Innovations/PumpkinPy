@@ -15,13 +15,4 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from . import pygameutils
-from . import pygame_interface
-from . import algorithms
-from . import mathlib
-from . import view3d
-from . import socketutils
-from . import imageutils
-from . import app
-from . import colorutils
-from . import logic
+from . import elements
