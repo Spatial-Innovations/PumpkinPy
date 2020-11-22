@@ -48,9 +48,63 @@ class ButtonText:
         self._texts = texts
         self._text_offset = text_offset
         self._click_buttons = click_buttons
+        self._calc_text_pos()
 
-    def draw(self, window, **kwargs):
+    def update_info(self, **kwargs):
+        """
+        Updates location, size, etc
+        :param kwargs: All arguments in __init__
+        """
+        self._loc = kwargs["loc"] if "loc" in kwargs else self._loc
+        self._size = kwargs["size"] if "size" in kwargs else self._size
+        self._colors = kwargs["colors"] if "colors" in kwargs else self._colors
+        self._border = kwargs["border"] if "border" in kwargs else self._border
+        self._border_color = kwargs["border_color"] if "border_color" in kwargs else self._border_color
+        self._texts = kwargs["texts"] if "texts" in kwargs else self._texts
+        self._text_offset = kwargs["text_offset"] if "text_offset" in kwargs else self._text_offset
+        self._click_buttons = kwargs["click_buttons"] if "click_buttons" in kwargs else self._click_buttons
+        self._calc_text_pos()
+    
+    def draw(self, window, events):
         """
         Draws the button on the window.
-        kwargs include all args in ButtonText.__init__.
         """
+        if self.clicked(events):
+            rect_color = self.colors[2]
+            text = self._texts[2]
+            text_loc = self._text_pos[2]
+        elif self.hovered():
+            rect_color = self.colors[1]
+            text = self._texts[1]
+            text_loc = self._text_pos[1]
+        else:
+            rect_color = self.colors[0]
+            text = self._texts[0]
+            text_loc = self._text_pos[0]
+
+        pygame.draw.rect(window, rect_color, self._loc+self._size)
+        window.blit(text, text_loc)
+        if self._border > 0:
+            pygame.draw.rect(window, self.border_color, self._loc+self._size, self._border)
+
+    def hovered(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if (self._loc[0] <= mouse_pos[0] <= self._loc[0]+self._size[0]) and (self._loc[1] <= mouse_pos[1] <= self._loc[1]+self._size[1]):
+            return True
+        else:
+            return False
+    
+    def clicked(self, events):
+        if self.hovered():
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button in self._click_buttons:
+                        return True
+
+        return False
+
+    def _calc_text_pos(self):
+        self._text_pos = []
+        for i in range(3):
+            diff = (self._size[0] - self._texts[i].get_width(), self._size[1] - self._texts[i].get_height())
+            self._text_pos.append((diff[0]+self._loc[0], diff[1]+self._loc[1]))
