@@ -31,9 +31,9 @@ class CamOrtho:
         :param shift: Tuple of floats specifying (x_shift, y_shift)
         :type shift: Tuple[float, float]
         """
-        self._angle = angle
-        self._size = size
-        self._shift = shift
+        self.angle = angle
+        self.size = size
+        self.shift = shift
 
     def render(self, resolution, mesh, matcap=None):
         """
@@ -54,37 +54,13 @@ class CamOrtho:
 
         return surface
 
-    def set_angle(self, angle):
-        """
-        Sets the camera angle.
-        :param angle: Tuple of floats specifying (latitude, longitude)
-        :type angle: Tuple[float, float]
-        """
-        self._angle = angle
-
-    def set_size(self, size):
-        """
-        Sets the camera size.
-        :param size: Float specifying orthographic size of camera
-        :type size: float
-        """
-        self._size = size
-
-    def set_shift(self, shift):
-        """
-        Sets the camera shift.
-        :param shift: Tuple of floats specifying (x_shift, y_shift)
-        :type shift: Tuple[float, float]
-        """
-        self._shift = shift
-
     def _project_vert(self, loc, res):
         """
         z = inverse cos' shift right pi/4
         x = inverse cos shift left pi/4
         """
-        angle = (radians(self._angle[0]), radians(self._angle[1]))
-        scale_fac = (res[0] / self._size, res[1] / self._size)
+        angle = (radians(self.angle[0]), radians(self.angle[1]))
+        scale_fac = (res[0] / self.size, res[1] / self.size)
         pix_loc = []
 
         # X location
