@@ -15,6 +15,10 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+import pygame
+from math import pi, radians, sin, cos
+from time import sleep
+
 
 class CamOrtho:
     def __init__(self, angle, size, shift):
@@ -31,14 +35,24 @@ class CamOrtho:
         self._size = size
         self._shift = shift
 
-    def render(self, mesh, matcap=None):
+    def render(self, resolution, mesh, matcap=None):
         """
         Renders the given mesh.
+        :param resolution: Tuple of pixel resolutions. The Y size will be adjusted, and the X size will be the ortho size.
+        :type resolution: Tuple[int, int]
         :param mesh: Mesh object
         :type mesh: pumpkinpy.view3d.Mesh
         :param matcap: Matcap image to render as
         :type matcap: pygame.surface, or None
         """
+        surface = pygame.Surface(resolution)
+        for face in mesh.faces:
+            curr_verts = []
+            for vert in face[1]:
+                curr_verts.append(self._project_vert(vert, resolution))
+            pygame.draw.polygon(surface, (128, 128, 128), curr_verts)
+
+        return surface
 
     def set_angle(self, angle):
         """
@@ -63,3 +77,29 @@ class CamOrtho:
         :type shift: Tuple[float, float]
         """
         self._shift = shift
+
+    def _project_vert(self, loc, res):
+        """
+        z = inverse cos' shift right pi/4
+        x = inverse cos shift left pi/4
+        """
+        angle = (radians(self._angle[0]), radians(self._angle[1]))
+        scale_fac = (res[0] / self._size, res[1] / self._size)
+        pix_loc = []
+
+        # X location
+        x_axis = cos(angle[1]) * loc[0] * scale_fac[0]
+        y_axis = sin(angle[1]) * loc[1] * scale_fac[0]
+        pix_loc.append(x_axis + y_axis)
+        #print(x_axis, y_axis)
+
+        # Y location
+        x_axis = sin(angle[1]) * loc[0] * scale_fac[1]
+        y_axis = -1 * cos(angle[1]) * loc[1] * scale_fac[1]
+        z_axis = sin(angle[0]) * loc[2] * scale_fac[1]
+        pix_loc.append(x_axis + y_axis + z_axis)
+        #print(x_axis, y_axis, z_axis)
+
+        pix_loc = (pix_loc[0] + res[0]//2, pix_loc[1] + res[1]//2)
+        #raise SystemExit
+        return pix_loc
